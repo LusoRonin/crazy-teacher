@@ -7,14 +7,19 @@ public class socket extends Thread {
     DatagramSocket DS;
     byte bp[] = new byte[1024];
     TextArea ecran = new TextArea(10, 30);
+    int port;
 
     socket(TextArea ta) {
         ecran = ta;
     }
 
+    public void setPort(int p){
+        port = p;
+    }
+
     public void run() {
         try {
-            DS = new DatagramSocket(8080);
+            DS = new DatagramSocket(port);
         } catch (IOException e) {
         }
         while (true)
