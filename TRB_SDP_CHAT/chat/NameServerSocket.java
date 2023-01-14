@@ -36,36 +36,76 @@ public class NameServerSocket extends Thread {
             byte Payload[] = DP.getData();
             int len = DP.getLength();
             String msg = new String(Payload, 0, 0, len);
+            int sender = DP.getPort();
 
-            if (msg.charAt(0) == 't') {
+            if (msg.charAt(0) == 'r'){
                 String regmsg = msg.substring(1);
-                List tempList = new ArrayList();
-                String tmpName = regmsg.substring(0, msg.length() - 4);
-                tempList.add(tmpName);
-                String tmpPort = regmsg.substring(msg.length() - 5);
-                tempList.add(tmpPort);
-                userList.add(tempList);
-                System.out.print(userList);
-            }
 
-            /*else{
-                String dest = msg.substring(0, msg.length() - 4);
-                for (int i = 0; i < userList.size(); i++) {
-                    if (userList.get(i).get(0).equals(dest)) {
-                        String port = userList.get(i).get(1).toString();
-                        int portInt = Integer.parseInt(port);
-                        String msgToSend = msg.substring(msg.length() - 4);
-                        sendDP(portInt, msgToSend);
+                if (userList.size() == 0){
+                    List tempList = new ArrayList();
+                    for (int i = 0; i < regmsg.length(); i++){
+                        if (regmsg.charAt(i) == ','){
+                            String tmpStr = regmsg.substring(0, i);
+                            String cliSenderName = regmsg.substring(i+1);
+
+                            int cliSenderPort = 8000;
+
+                            tempList.add(cliSenderPort);
+                            tempList.add(cliSenderName);
+                            
+                            userList.add(tempList);
+
+                            Server.append(userList.toString());
+                            break;
+                        }
+                    }
+
+                    String portAssign = "p" + "8000";
+
+                    sendDP(sender, portAssign);
+                }
+                else{
+                    List tempList = new ArrayList();
+                    for (int i = 0; i < userList.size(); i++){
+                        if (i == userList.size() - 1){
+                            String tmpVar = userList.get(i).get(1).toString();
+                        }
+                    }
+                    String portAssign = null;
+                    for (int i = 0; i < userList.size(); i++){
+                        if (i == userList.size() - 1){
+                            String lastPort = userList.get(i).get(0).toString();
+
+                            int lastPortInt = Integer.parseInt(lastPort);
+                            int lastPortIntPlus = lastPortInt + 1;
+
+                            int cliSenderPort = lastPortIntPlus;
+                            String tmpCliPort = Integer.toString(cliSenderPort);
+                            
+                            portAssign = "p" + tmpCliPort;
+
+                            tempList.add(cliSenderPort);
+
+                            break;
+                        }
+                    }
+                    for (int i = 0; i < regmsg.length(); i++){ 
+                        if (regmsg.charAt(i) == ','){
+                            String tmpStr = regmsg.substring(0, i);
+                            String cliSenderName = regmsg.substring(i+1);
+
+                            tempList.add(cliSenderName);
+
+                            userList.add(tempList);
+
+                            Server.append("\n" + userList.toString());
+
+                            sendDP(sender, portAssign);
+                            break;
+                        }
                     }
                 }
-            }*/
-
-            
-
-            //String regmsg = msg.substring(msg.length() - 4);
-            //System.out.println(regmsg);
-            //Server.appendText("\nCliente->" + regmsg);
-            
+            }
         } catch (IOException e) {
         }
     }

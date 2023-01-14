@@ -9,12 +9,20 @@ public class CliSocket extends Thread {
     TextArea ecran = new TextArea(10, 30);
     int port;
 
+    boolean regUser = false;
+    boolean newPort = false;
+    boolean confirm = false;
+
     CliSocket(TextArea ta) {
         ecran = ta;
     }
 
     public void setPort(int p){
         port = p;
+    }
+
+    public boolean getConfirm(){
+        return confirm;
     }
 
     public void receiveDP() {
@@ -28,6 +36,32 @@ public class CliSocket extends Thread {
             String tmp = IPr.toString();
             String temp = tmp.substring(1);
             ecran.appendText("\n" + temp + ": " + res);
+
+        } catch (IOException e) {
+        }
+    }
+
+    public void receiveRegDP(){
+        try {
+            DatagramPacket DP = new DatagramPacket(bp, 1024);
+            DS.receive(DP);
+            IPr = DP.getAddress();
+            byte Payload[] = DP.getData();
+            int len = DP.getLength();
+            String res = new String(Payload, 0, 0, len);
+
+            if (res.charAt(0) == 'y'){
+                confirm = true;
+            }
+
+            if (res.charAt(0) == 'p'){
+                String tmp = res.substring(1);
+                int p = Integer.parseInt(tmp);
+                setPort(p);
+                regUser = true;
+                newPort = true;
+            }
+
         } catch (IOException e) {
         }
     }
@@ -44,13 +78,13 @@ public class CliSocket extends Thread {
         }
     }
 
-    public void sendtoServer(String msg) {
+    public void sendtoServices(int Pr, String msg) {
         int len = msg.length();
         byte b[] = new byte[len];
         msg.getBytes(0, len, b, 0);
         try {
             ER = InetAddress.getByName("127.0.0.1");
-            DatagramPacket DP = new DatagramPacket(b, len, ER, 8080);
+            DatagramPacket DP = new DatagramPacket(b, len, ER, Pr);
             DS.send(DP);
         } catch (IOException e) {
         }
@@ -58,10 +92,21 @@ public class CliSocket extends Thread {
 
     public void run() {
         try {
-            DS = new DatagramSocket(port);
+            DS = new DatagramSocket();
+            System.out.print(DS.getLocalPort());
         } catch (IOException e) {
         }
-        while (true)
+        while (!regUser && !newPort){
+            receiveRegDP();
+        }
+        DS.close();
+        try {
+            DS = new DatagramSocket(port);
+            System.out.print(DS.getLocalPort());
+        } catch (IOException e) {
+        }
+        while (true){
             receiveDP();
+        }
     }
 }

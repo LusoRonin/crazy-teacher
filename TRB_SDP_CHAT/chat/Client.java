@@ -1,6 +1,8 @@
 import java.io.*;
+import java.sql.Time;
 import java.awt.*;
 import javax.swing.JOptionPane;
+import java.util.concurrent.TimeUnit;
 
 public class Client extends Frame {
     TextArea ecran = new TextArea(10, 30);
@@ -16,8 +18,8 @@ public class Client extends Frame {
     String strport = null;
     int port;
 
-    boolean userValid = false;
-    boolean portValid = false;
+    boolean userLenValid = false;
+    boolean userRegValid = false;
     
 
 
@@ -25,10 +27,6 @@ public class Client extends Frame {
         super(str);
     }
 
-
-    public void sendtoServer(String msg){
-        sock.sendtoServer(msg);
-    }
 
     public String getCliRegister(){
         return cliRegister;
@@ -54,15 +52,49 @@ public class Client extends Frame {
     }
 
     public void setupClient(){
-        while (!userValid){
+        while (!userLenValid){
             user = JOptionPane.showInputDialog("Enter your username");
             if (user.length() > 0){
-                userValid = true;
+                userLenValid = true;
                 break;
             }
         }
+
+        user = "r" + user;
+
+
+        sock.sendtoServices(8081, user);
+
+        try{
+        TimeUnit.SECONDS.sleep(2);
+        }
+        catch (InterruptedException e){
+            System.out.println("Interrupted");
+        }
+
+        while (!sock.getConfirm()){
+            user = JOptionPane.showInputDialog("User name invalid! Enter your username");
+            user = "r" + user;
+            sock.sendtoServices(8081, user);
+            try{
+            TimeUnit.SECONDS.sleep(2);
+            }
+            catch (InterruptedException e){
+                System.out.println("Interrupted");
+            }
+        }
+
+        /*while (!sock.getConfirm()){
+            System.out.print("accessibleContext");
+            sock.receiveRegDP();
+        }*/
+
         
-        while (!portValid){
+
+
+
+        
+        /*while (!portValid){
         str= JOptionPane.showInputDialog("Enter your port");
         int tmpport = Integer.parseInt(str);
             if (tmpport >= 8000 && tmpport <= 8010){
@@ -77,7 +109,7 @@ public class Client extends Frame {
 
         System.out.println(cliRegister);
 
-        sendtoServer(cliRegister);
+        sendtoServer(cliRegister);*/
 
     }
 
@@ -111,8 +143,8 @@ public class Client extends Frame {
         Client app = new Client("Client");
         app.resize(600, 350);
         app.GUI();
-        app.show();
         app.StartSocket();
         app.setupClient();
+        app.show();
     }
 }
