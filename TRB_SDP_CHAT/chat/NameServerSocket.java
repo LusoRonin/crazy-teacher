@@ -46,6 +46,7 @@ public class NameServerSocket extends Thread {
                     for (int i = 0; i < regmsg.length(); i++){
                         if (regmsg.charAt(i) == ','){
                             String tmpStr = regmsg.substring(0, i);
+                            Server.append(tmpStr);
                             String cliSenderName = regmsg.substring(i+1);
 
                             int cliSenderPort = 8000;
@@ -56,13 +57,15 @@ public class NameServerSocket extends Thread {
                             userList.add(tempList);
 
                             Server.append(userList.toString());
+
+                            String portAssign = "p" + "8000";
+
+                            int clientOriginalPort = Integer.parseInt(tmpStr);
+
+                            sendDP(clientOriginalPort, portAssign);
                             break;
                         }
                     }
-
-                    String portAssign = "p" + "8000";
-
-                    sendDP(sender, portAssign);
                 }
                 else{
                     List tempList = new ArrayList();
@@ -100,7 +103,9 @@ public class NameServerSocket extends Thread {
 
                             Server.append("\n" + userList.toString());
 
-                            sendDP(sender, portAssign);
+                            int clientOriginalPort = Integer.parseInt(tmpStr);
+
+                            sendDP(clientOriginalPort, portAssign);
                             break;
                         }
                     }
