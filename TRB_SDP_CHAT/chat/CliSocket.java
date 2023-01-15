@@ -93,7 +93,7 @@ public class CliSocket extends Thread {
     public void run() {
         try {
             DS = new DatagramSocket();
-            System.out.print(DS.getLocalPort());
+            System.out.println("Porta: " + DS.getLocalPort());
         } catch (IOException e) {
         }
         while (!regUser && !newPort){
@@ -102,7 +102,8 @@ public class CliSocket extends Thread {
         DS.close();
         try {
             DS = new DatagramSocket(port);
-            System.out.print(DS.getLocalPort());
+            System.out.println("Nova porta: " + DS.getLocalPort());
+            
         } catch (IOException e) {
         }
         while (true){
