@@ -39,10 +39,9 @@ public class Registry extends Frame {
     }
 
     public static void main(String[] args) throws IOException {
-        Registry app = new Registry("Registry");
+        Registry app = new Registry("Registry Service");
         app.resize(320, 240);
         app.GUI();
-        app.Registry.setText(null);
         app.show();
         app.StartSocket();
     }

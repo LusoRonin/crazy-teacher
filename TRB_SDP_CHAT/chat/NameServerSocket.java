@@ -19,6 +19,7 @@ public class NameServerSocket extends Thread {
     public void run() {
         try {
             DS = new DatagramSocket(8080);
+            Server.append("Welcome to the Name Service\n");
         } catch (IOException e) {
         }
         while (true)
@@ -37,10 +38,8 @@ public class NameServerSocket extends Thread {
             int len = DP.getLength();
             String msg = new String(Payload, 0, 0, len);
             int sender = DP.getPort();
-
             if (msg.charAt(0) == '-' && msg.charAt(1) == 'a'){
                 String askmsg = msg.substring(2);
-
                 for (int i = 0; i < userList.size(); i++){
                     if (userList.get(i).get(1).toString().equals(askmsg)){
                         String assignedPort = userList.get(i).get(0).toString();
@@ -53,67 +52,43 @@ public class NameServerSocket extends Thread {
 
             if (msg.charAt(0) == '-' && msg.charAt(1) == 'r'){
                 String regmsg = msg.substring(2);
-
                 if (userList.size() == 0){
                     List tempList = new ArrayList();
-                    for (int i = 0; i < regmsg.length(); i++){
-                        if (regmsg.charAt(i) == ','){
-                            String tmpStr = regmsg.substring(0, i);
-                            String cliSenderName = regmsg.substring(i+1);
-
-                            int cliSenderPort = 8000;
-
-                            tempList.add(cliSenderPort);
-                            tempList.add(cliSenderName);
-                            
-                            userList.add(tempList);
-
-                            Server.append(userList.toString());
-
-                            String portAssign = "p" + "8000";
-
-                            int clientOriginalPort = Integer.parseInt(tmpStr);
-
-                            sendDP(clientOriginalPort, portAssign);
-                            break;
-                        }
-                    }
+                    String cliSenderName = regmsg;
+                    int cliSenderPort = 8000;
+                    tempList.add(cliSenderPort);
+                    tempList.add(cliSenderName);
+                    userList.add(tempList);
+                    Server.append("\nAssigned '" + userList.get(0).get(1).toString() + "' on Port: " +  userList.get(0).get(0).toString() + "!");
+                    String portAssign = "y" + "p" + "8000";
+                    sendDP(sender, portAssign);
                 }
                 else{
                     List tempList = new ArrayList();
                     String portAssign = null;
+                    String cliSenderName = regmsg;
                     for (int i = 0; i < userList.size(); i++){
-                        if (i == userList.size() - 1){
-                            String lastPort = userList.get(i).get(0).toString();
-
-                            int lastPortInt = Integer.parseInt(lastPort);
-                            int lastPortIntPlus = lastPortInt + 1;
-
-                            int cliSenderPort = lastPortIntPlus;
-                            String tmpCliPort = Integer.toString(cliSenderPort);
-                            
-                            portAssign = "p" + tmpCliPort;
-
-                            tempList.add(cliSenderPort);
-
+                        if (userList.get(i).get(1).equals(regmsg)){
+                            String assignedmsg = "-rn";
+                            Server.append("\n'" + regmsg + "'' already exists!");
+                            sendDP(sender, assignedmsg);
                             break;
                         }
-                    }
-                    for (int i = 0; i < regmsg.length(); i++){ 
-                        if (regmsg.charAt(i) == ','){
-                            String tmpStr = regmsg.substring(0, i);
-                            String cliSenderName = regmsg.substring(i+1);
-
-                            tempList.add(cliSenderName);
-
-                            userList.add(tempList);
-
-                            Server.append("\n" + userList.toString());
-
-                            int clientOriginalPort = Integer.parseInt(tmpStr);
-
-                            sendDP(clientOriginalPort, portAssign);
-                            break;
+                        else{
+                            if (i == userList.size() - 1){
+                                String lastPort = userList.get(i).get(0).toString();
+                                int lastPortInt = Integer.parseInt(lastPort);
+                                int lastPortIntPlus = lastPortInt + 1;
+                                int cliSenderPort = lastPortIntPlus;
+                                String tmpCliPort = Integer.toString(cliSenderPort);
+                                tempList.add(cliSenderPort);
+                                tempList.add(cliSenderName);
+                                userList.add(tempList);
+                                Server.append("\nAssigned '" + userList.get(i+1).get(1).toString() + "' on Port: " +  userList.get(i+1).get(0).toString() + "!");
+                                portAssign = "y" + "p" + tmpCliPort;
+                                sendDP(sender, portAssign);
+                                break;
+                            }  
                         }
                     }
                 }

@@ -46,20 +46,15 @@ public class CliSocket extends Thread {
             byte Payload[] = DP.getData();
             int len = DP.getLength();
             String res = new String(Payload, 0, 0, len);
-
-            //String tmp = IPr.toString();
-            //String temp = tmp.substring(1);
-            
             if (res.charAt(0) == '-' && res.charAt(1) == 'a'){
                 destPort = Integer.parseInt(res.substring(2));
             }
             else{
                 for (int i = 0; i < res.length(); i++){
                     if (res.charAt(i) == ','){
-                        String temp = res.substring(2, i);
-                        String capitalizeFirst = temp.substring(0, 1).toUpperCase() + temp.substring(1);
+                        String userSent = res.substring(2, i);
                         String newRes = res.substring(i + 1);
-                        ecran.appendText("\n" + capitalizeFirst + ": " + newRes);
+                        ecran.appendText("\n" + userSent + ": " + newRes);
                         break;
                     }
                 }
@@ -77,17 +72,18 @@ public class CliSocket extends Thread {
             byte Payload[] = DP.getData();
             int len = DP.getLength();
             String res = new String(Payload, 0, 0, len);
-
             if (res.charAt(0) == 'y'){
                 confirm = true;
             }
-
-            if (res.charAt(0) == 'p'){
-                String tmp = res.substring(1);
-                int p = Integer.parseInt(tmp);
-                setPort(p);
-                regUser = true;
-                newPort = true;
+            if (res.length() > 1){
+                if (res.charAt(1) == 'p'){
+                    String tmp = res.substring(2);
+                    int p = Integer.parseInt(tmp);
+                    setPort(p);
+                    regUser = true;
+                    newPort = true;
+                    ecran.append("Welcome to the chat! Your PIN is: " + p + ".\n");
+                }
             }
 
         } catch (IOException e) {
@@ -131,7 +127,6 @@ public class CliSocket extends Thread {
         try {
             DS = new DatagramSocket(port);
             System.out.println("Nova porta: " + DS.getLocalPort());
-            
         } catch (IOException e) {
         }
         while (true){

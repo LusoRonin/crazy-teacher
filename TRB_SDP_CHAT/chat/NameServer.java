@@ -38,7 +38,7 @@ public class NameServer extends Frame {
     }
 
     public static void main(String[] args) throws IOException {
-        NameServer app = new NameServer("NameServer");
+        NameServer app = new NameServer("Name Service");
         app.resize(320, 240);
         app.GUI();
         app.show();
