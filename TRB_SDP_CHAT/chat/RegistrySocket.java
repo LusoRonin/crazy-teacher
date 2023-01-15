@@ -48,8 +48,8 @@ public class RegistrySocket extends Thread {
             int sender = DP.getPort();
             String msg = new String(Payload, 0, 0, len);
 
-            if (msg.charAt(0) == 'r'){
-                String regmsg = msg.substring(1);
+            if (msg.charAt(0) == '-' && msg.charAt(1) == 'r'){
+                String regmsg = msg.substring(2);
 
                 String usize = Integer.toString(usersList.size());
 
@@ -59,12 +59,11 @@ public class RegistrySocket extends Thread {
                     String res = "y";
                     sendDP(sender, res);
 
-                    regmsg= "r" + sender + "," + regmsg;
+                    regmsg= "-r" + sender + "," + regmsg;
 
                     sendDP(8080, regmsg);
                 }
                 else{
-
                     for (int i = 0; i < usersList.size(); i++) {
                         if (usersList.get(i).toString().equals(regmsg)) {
                             String res = "n";
@@ -77,7 +76,7 @@ public class RegistrySocket extends Thread {
                             Registry.append("\n" + regmsg + " registado");
                             sendDP(sender, res);
 
-                            regmsg= "r" + sender + "," + regmsg;
+                            regmsg= "-r" + sender + "," + regmsg;
 
                             sendDP(8080, regmsg);
 

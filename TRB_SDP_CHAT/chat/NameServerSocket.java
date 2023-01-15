@@ -38,15 +38,27 @@ public class NameServerSocket extends Thread {
             String msg = new String(Payload, 0, 0, len);
             int sender = DP.getPort();
 
-            if (msg.charAt(0) == 'r'){
-                String regmsg = msg.substring(1);
+            if (msg.charAt(0) == '-' && msg.charAt(1) == 'a'){
+                String askmsg = msg.substring(2);
+
+                for (int i = 0; i < userList.size(); i++){
+                    if (userList.get(i).get(1).toString().equals(askmsg)){
+                        String assignedPort = userList.get(i).get(0).toString();
+                        String assignedmsg = "-a" + assignedPort;
+                        sendDP(sender, assignedmsg);
+                        break;
+                    }
+                }
+            }
+
+            if (msg.charAt(0) == '-' && msg.charAt(1) == 'r'){
+                String regmsg = msg.substring(2);
 
                 if (userList.size() == 0){
                     List tempList = new ArrayList();
                     for (int i = 0; i < regmsg.length(); i++){
                         if (regmsg.charAt(i) == ','){
                             String tmpStr = regmsg.substring(0, i);
-                            Server.append(tmpStr);
                             String cliSenderName = regmsg.substring(i+1);
 
                             int cliSenderPort = 8000;
@@ -69,11 +81,6 @@ public class NameServerSocket extends Thread {
                 }
                 else{
                     List tempList = new ArrayList();
-                    for (int i = 0; i < userList.size(); i++){
-                        if (i == userList.size() - 1){
-                            String tmpVar = userList.get(i).get(1).toString();
-                        }
-                    }
                     String portAssign = null;
                     for (int i = 0; i < userList.size(); i++){
                         if (i == userList.size() - 1){
