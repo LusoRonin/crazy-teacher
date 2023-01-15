@@ -8,6 +8,7 @@ public class CliSocket extends Thread {
     byte bp[] = new byte[1024];
     TextArea ecran = new TextArea(10, 30);
     int port;
+    int destPort;
 
     boolean regUser = false;
     boolean newPort = false;
@@ -25,6 +26,18 @@ public class CliSocket extends Thread {
         return confirm;
     }
 
+    public void setConfirm(boolean c){
+        confirm = c;
+    }
+
+    public int getdestPort(){
+        return destPort;
+    }
+
+    public void setdestPort(int p){
+        destPort = p;
+    }
+
     public void receiveDP() {
         try {
             DatagramPacket DP = new DatagramPacket(bp, 1024);
@@ -33,9 +46,24 @@ public class CliSocket extends Thread {
             byte Payload[] = DP.getData();
             int len = DP.getLength();
             String res = new String(Payload, 0, 0, len);
-            String tmp = IPr.toString();
-            String temp = tmp.substring(1);
-            ecran.appendText("\n" + temp + ": " + res);
+
+            //String tmp = IPr.toString();
+            //String temp = tmp.substring(1);
+            
+            if (res.charAt(0) == '-' && res.charAt(1) == 'a'){
+                destPort = Integer.parseInt(res.substring(2));
+            }
+            else{
+                for (int i = 0; i < res.length(); i++){
+                    if (res.charAt(i) == ','){
+                        String temp = res.substring(2, i);
+                        String capitalizeFirst = temp.substring(0, 1).toUpperCase() + temp.substring(1);
+                        String newRes = res.substring(i + 1);
+                        ecran.appendText("\n" + capitalizeFirst + ": " + newRes);
+                        break;
+                    }
+                }
+            }
 
         } catch (IOException e) {
         }

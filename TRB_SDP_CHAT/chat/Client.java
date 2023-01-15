@@ -8,7 +8,7 @@ public class Client extends Frame {
     TextArea ecran = new TextArea(10, 30);
     TextField addr = new TextField(30);
     TextField text = new TextField(30);
-    TextField p = new TextField(30);
+    //TextField p = new TextField(30);
     Button Send = new Button("Send");
     CliSocket sock = new CliSocket(ecran);
     String cliRegister;
@@ -44,7 +44,7 @@ public class Client extends Frame {
         P1.add("West", addr);
         P1.add("East", Send);
         P1.add("South", ecran);
-        P1.add("Center", p);
+        //P1.add("Center", p);
         GridBagConstraints P1C = new GridBagConstraints();
         P1C.gridwidth = GridBagConstraints.REMAINDER;
         GBL.setConstraints(P1, P1C);
@@ -60,7 +60,7 @@ public class Client extends Frame {
             }
         }
 
-        user = "r" + user;
+        user = "-r" + user;
 
 
         sock.sendtoServices(8081, user);
@@ -74,7 +74,7 @@ public class Client extends Frame {
 
         while (!sock.getConfirm()){
             user = JOptionPane.showInputDialog("User name invalid! Enter your username");
-            user = "r" + user;
+            user = "-r" + user;
             sock.sendtoServices(8081, user);
             try{
             TimeUnit.SECONDS.sleep(2);
@@ -83,34 +83,7 @@ public class Client extends Frame {
                 System.out.println("Interrupted");
             }
         }
-
-        /*while (!sock.getConfirm()){
-            System.out.print("accessibleContext");
-            sock.receiveRegDP();
-        }*/
-
-        
-
-
-
-        
-        /*while (!portValid){
-        str= JOptionPane.showInputDialog("Enter your port");
-        int tmpport = Integer.parseInt(str);
-            if (tmpport >= 8000 && tmpport <= 8010){
-                portValid = true;
-                port = tmpport;
-                break;
-            }
-        }
-
-        String cliRegister =  "t" + user + port;
-        sock.setPort(port);
-
-        System.out.println(cliRegister);
-
-        sendtoServer(cliRegister);*/
-
+        sock.setConfirm(false);
     }
 
     public void StartSocket() {
@@ -128,12 +101,29 @@ public class Client extends Frame {
 
     public boolean action(Event i, Object o) {
         if (i.target == Send) {
+            int portDest = 0;
             String msg = text.getText();
-            String end = addr.getText();
-            String strp = p.getText();
-            int pli = Integer.parseInt(strp);
-            sock.sendDP(pli, msg, end);
+            String askDest = "-a" + addr.getText();
+            sock.sendtoServices(8080, askDest);
+
+            try{
+                TimeUnit.MILLISECONDS.sleep(100);
+                }
+                catch (InterruptedException e){
+                    System.out.println("Interrupted");
+                }
+           
+            portDest = sock.getdestPort();
+
+            ecran.appendText("\n" + "You: " + msg);
+
+            msg = user + ',' + msg;
+ 
+            sock.sendDP(portDest, msg, "127.0.0.1");
             text.setText("");
+
+            sock.setdestPort(0);
+
             return true;
         }
         return false;
