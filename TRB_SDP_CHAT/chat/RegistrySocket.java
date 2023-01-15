@@ -11,6 +11,8 @@ public class RegistrySocket extends Thread {
 
     ArrayList<String> usersList = new ArrayList<String>();
 
+    String assignedmsg = null;
+
     RegistrySocket(TextArea ta) {
         Registry = ta;
     }
@@ -18,6 +20,7 @@ public class RegistrySocket extends Thread {
     public void run() {
         try {
             DS = new DatagramSocket(8081);
+            Registry.append("Welcome to the Registry Service!\n");
         } catch (IOException e) {
         }
         while (true)
@@ -27,10 +30,10 @@ public class RegistrySocket extends Thread {
     public String receiveAssignDP(){
         String msg = null;
         try{
-            DatagramPacket DPAssign = new DatagramPacket(bp, 1024);
-            DS.receive(DPAssign);
-            byte Payload[] = DPAssign.getData();
-            int len = DPAssign.getLength();
+            DatagramPacket DP = new DatagramPacket(bp, 1024);
+            DS.receive(DP);
+            byte Payload[] = DP.getData();
+            int len = DP.getLength();
             msg = new String(Payload, 0, 0, len);
         }
         catch (IOException e) {
@@ -44,47 +47,22 @@ public class RegistrySocket extends Thread {
             DS.receive(DP);
             byte Payload[] = DP.getData();
             int len = DP.getLength();
-
             int sender = DP.getPort();
             String msg = new String(Payload, 0, 0, len);
-
             if (msg.charAt(0) == '-' && msg.charAt(1) == 'r'){
                 String regmsg = msg.substring(2);
-
-                String usize = Integer.toString(usersList.size());
-
-                if (usersList.size() == 0){
-                    usersList.add(regmsg);
-                    Registry.append(regmsg + " registado");
-                    String res = "y";
-                    sendDP(sender, res);
-
-                    regmsg= "-r" + sender + "," + regmsg;
-
-                    sendDP(8080, regmsg);
+                String sendRegmsg = "-r" + regmsg;
+                sendDP(8080, sendRegmsg);
+                assignedmsg = receiveAssignDP();
+                if(assignedmsg.charAt(0) == 'y'){
+                    String msgToSend = assignedmsg;
+                    sendDP(sender, msgToSend);
+                    Registry.append("\nCreated: " + regmsg + "!");
                 }
                 else{
-                    for (int i = 0; i < usersList.size(); i++) {
-                        if (usersList.get(i).toString().equals(regmsg)) {
-                            String res = "n";
-                            sendDP(sender, res);
-
-                            break;
-                        }else{
-                            String res = "y";
-                            usersList.add(regmsg);
-                            Registry.append("\n" + regmsg + " registado");
-                            sendDP(sender, res);
-
-                            regmsg= "-r" + sender + "," + regmsg;
-
-                            sendDP(8080, regmsg);
-
-                            break;
-                            //String updatedUsers = usersList.toString();
-                            //sendDP(8080, updatedUsers);
-                        }
-                    }
+                    String res = "n";
+                    Registry.append("\n" + "User not assigned due to a conflict!");
+                    sendDP(sender, res);
                 }
             }  
         } catch (IOException e) {

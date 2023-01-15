@@ -8,12 +8,13 @@ public class Client extends Frame {
     TextArea ecran = new TextArea(10, 30);
     TextField addr = new TextField(30);
     TextField text = new TextField(30);
-    //TextField p = new TextField(30);
+    Label userlab = new Label();
     Button Send = new Button("Send");
     CliSocket sock = new CliSocket(ecran);
     String cliRegister;
 
     String user = null;
+    String formUser = null;
     String str = null;
     String strport = null;
     int port;
@@ -21,17 +22,13 @@ public class Client extends Frame {
     boolean userLenValid = false;
     boolean userRegValid = false;
     
-
-
     public Client(String str) {
         super(str);
     }
 
-
     public String getCliRegister(){
         return cliRegister;
     }
-
 
     public void GUI() {
         setBackground(Color.lightGray);
@@ -40,11 +37,11 @@ public class Client extends Frame {
         setLayout(GBL);
         Panel P1 = new Panel();
         P1.setLayout(new BorderLayout(5, 5));
-        P1.add("North", text);
+        P1.add("North", userlab);
+        P1.add("Center", text);
         P1.add("West", addr);
         P1.add("East", Send);
         P1.add("South", ecran);
-        //P1.add("Center", p);
         GridBagConstraints P1C = new GridBagConstraints();
         P1C.gridwidth = GridBagConstraints.REMAINDER;
         GBL.setConstraints(P1, P1C);
@@ -58,32 +55,31 @@ public class Client extends Frame {
                 userLenValid = true;
                 break;
             }
+            else{
+                JOptionPane.showInputDialog("Username cannot be empty! Enter your username");
+            }
         }
-
         user = "-r" + user;
-
-
+        formUser = user.substring(2);
+        userlab.setText("Logged in as: " + formUser);
         sock.sendtoServices(8081, user);
-
         try{
-        TimeUnit.SECONDS.sleep(2);
-        }
-        catch (InterruptedException e){
-            System.out.println("Interrupted");
-        }
-
+            TimeUnit.MILLISECONDS.sleep(100);
+            }
+            catch (InterruptedException e){
+                System.out.println("Interrupted");
+            }
         while (!sock.getConfirm()){
             user = JOptionPane.showInputDialog("User name invalid! Enter your username");
             user = "-r" + user;
             sock.sendtoServices(8081, user);
             try{
-            TimeUnit.SECONDS.sleep(2);
+                TimeUnit.MILLISECONDS.sleep(100);
             }
             catch (InterruptedException e){
                 System.out.println("Interrupted");
             }
         }
-        sock.setConfirm(false);
     }
 
     public void StartSocket() {
@@ -132,9 +128,9 @@ public class Client extends Frame {
     public static void main(String[] args) throws IOException {
         Client app = new Client("Client");
         app.resize(600, 350);
-        app.GUI();
         app.StartSocket();
         app.setupClient();
+        app.GUI();
         app.show();
     }
 }
