@@ -57,17 +57,9 @@ public class CliSocket extends Thread {
             else{
                 String [] resArray = res.split(",");
                 String userSent = resArray[0].substring(2);
+                userSent = userSent.substring(0, 1).toUpperCase() + userSent.substring(1);
                 String newRes = resArray[1];
                 ecran.appendText("\n" + userSent + ": " + newRes);
-
-                /*for (int i = 0; i < res.length(); i++){
-                    if (res.charAt(i) == ','){
-                        String userSent = res.substring(2, i);
-                        String newRes = res.substring(i + 1);
-                        ecran.appendText("\n" + userSent + ": " + newRes);
-                        break;
-                    }
-                }*/
             }
 
         } catch (IOException e) {
