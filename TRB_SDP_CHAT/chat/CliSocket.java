@@ -47,17 +47,27 @@ public class CliSocket extends Thread {
             int len = DP.getLength();
             String res = new String(Payload, 0, 0, len);
             if (res.charAt(0) == '-' && res.charAt(1) == 'a'){
-                destPort = Integer.parseInt(res.substring(2));
+                if (res.charAt(2) == 'm'){
+                    destPort = Integer.parseInt(res.substring(3));
+                }
+                else{
+                    destPort = Integer.parseInt(res.substring(2));
+                }
             }
             else{
-                for (int i = 0; i < res.length(); i++){
+                String [] resArray = res.split(",");
+                String userSent = resArray[0].substring(2);
+                String newRes = resArray[1];
+                ecran.appendText("\n" + userSent + ": " + newRes);
+
+                /*for (int i = 0; i < res.length(); i++){
                     if (res.charAt(i) == ','){
                         String userSent = res.substring(2, i);
                         String newRes = res.substring(i + 1);
                         ecran.appendText("\n" + userSent + ": " + newRes);
                         break;
                     }
-                }
+                }*/
             }
 
         } catch (IOException e) {
@@ -81,7 +91,6 @@ public class CliSocket extends Thread {
                     int p = Integer.parseInt(tmp);
                     setPort(p);
                     regUser = true;
-                    newPort = true;
                     ecran.append("Welcome to the chat! Your PIN is: " + p + ".\n");
                 }
             }
@@ -120,7 +129,7 @@ public class CliSocket extends Thread {
             System.out.println("Porta: " + DS.getLocalPort());
         } catch (IOException e) {
         }
-        while (!regUser && !newPort){
+        while (!regUser){
             receiveRegDP();
         }
         DS.close();

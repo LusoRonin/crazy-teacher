@@ -99,8 +99,14 @@ public class Client extends Frame {
         if (i.target == Send) {
             int portDest = 0;
             String msg = text.getText();
+            if(addr.getText().contains(",")){
+                String askDest = "-am" + addr.getText();
+                sock.sendtoServices(8080, askDest);
+            }else{
             String askDest = "-a" + addr.getText();
             sock.sendtoServices(8080, askDest);
+            }
+            
 
             try{
                 TimeUnit.MILLISECONDS.sleep(100);
@@ -108,14 +114,20 @@ public class Client extends Frame {
                 catch (InterruptedException e){
                     System.out.println("Interrupted");
                 }
-           
+
             portDest = sock.getdestPort();
 
             ecran.appendText("\n" + "You: " + msg);
 
             msg = user + ',' + msg;
- 
-            sock.sendDP(portDest, msg, "127.0.0.1");
+            
+            for (int j = 0; j < Integer.toString(portDest).length(); j = j + 4){
+                String strPortDest = Integer.toString(portDest).substring(j, j + 4);
+                int singlePort = Integer.parseInt(strPortDest);
+                sock.sendDP(singlePort, msg, "127.0.0.1");
+                
+            }
+
             text.setText("");
 
             sock.setdestPort(0);

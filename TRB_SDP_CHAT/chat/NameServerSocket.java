@@ -38,12 +38,30 @@ public class NameServerSocket extends Thread {
             int len = DP.getLength();
             String msg = new String(Payload, 0, 0, len);
             int sender = DP.getPort();
+
+            String assignedPort = null;
+            String assignedmsg = null;
+
+            if (msg.charAt(0) == '-' && msg.charAt(1) == 'a' && msg.charAt(2) == 'm'){
+                String askmsg = msg.substring(3);
+                String [] askmsgArray = askmsg.split(",");
+                assignedmsg = "-am";
+                for (String dest:askmsgArray){
+                    for (int i = 0; i < userList.size(); i++){
+                        if (userList.get(i).get(1).toString().equals(dest)){
+                            assignedPort = userList.get(i).get(0).toString();
+                            assignedmsg += assignedPort;
+                        }
+                    }
+                }
+                sendDP(sender, assignedmsg);
+            }
             if (msg.charAt(0) == '-' && msg.charAt(1) == 'a'){
                 String askmsg = msg.substring(2);
                 for (int i = 0; i < userList.size(); i++){
                     if (userList.get(i).get(1).toString().equals(askmsg)){
-                        String assignedPort = userList.get(i).get(0).toString();
-                        String assignedmsg = "-a" + assignedPort;
+                        assignedPort = userList.get(i).get(0).toString();
+                        assignedmsg = "-a" + assignedPort;
                         sendDP(sender, assignedmsg);
                         break;
                     }
@@ -69,7 +87,7 @@ public class NameServerSocket extends Thread {
                     String cliSenderName = regmsg;
                     for (int i = 0; i < userList.size(); i++){
                         if (userList.get(i).get(1).equals(regmsg)){
-                            String assignedmsg = "-rn";
+                            assignedmsg = "-rn";
                             Server.append("\n'" + regmsg + "'' already exists!");
                             sendDP(sender, assignedmsg);
                             break;
