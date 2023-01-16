@@ -57,6 +57,7 @@ public class RegistrySocket extends Thread {
                 if(assignedmsg.charAt(0) == 'y'){
                     String msgToSend = assignedmsg;
                     sendDP(sender, msgToSend);
+                    regmsg = regmsg.substring(0, 1).toUpperCase() + regmsg.substring(1);
                     Registry.append("\nCreated: " + regmsg + "!");
                 }
                 else{

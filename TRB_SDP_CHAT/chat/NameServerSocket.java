@@ -43,7 +43,7 @@ public class NameServerSocket extends Thread {
             String assignedmsg = null;
 
             if (msg.charAt(0) == '-' && msg.charAt(1) == 'a' && msg.charAt(2) == 'm'){
-                String askmsg = msg.substring(3);
+                String askmsg = msg.substring(3).toLowerCase();
                 String [] askmsgArray = askmsg.split(",");
                 assignedmsg = "-am";
                 for (String dest:askmsgArray){
@@ -57,7 +57,7 @@ public class NameServerSocket extends Thread {
                 sendDP(sender, assignedmsg);
             }
             if (msg.charAt(0) == '-' && msg.charAt(1) == 'a'){
-                String askmsg = msg.substring(2);
+                String askmsg = msg.substring(2).toLowerCase();
                 for (int i = 0; i < userList.size(); i++){
                     if (userList.get(i).get(1).toString().equals(askmsg)){
                         assignedPort = userList.get(i).get(0).toString();
@@ -69,15 +69,17 @@ public class NameServerSocket extends Thread {
             }
 
             if (msg.charAt(0) == '-' && msg.charAt(1) == 'r'){
-                String regmsg = msg.substring(2);
+                String regmsg = msg.substring(2).toLowerCase();
                 if (userList.size() == 0){
                     List tempList = new ArrayList();
-                    String cliSenderName = regmsg;
+                    String cliSenderName = regmsg.toLowerCase();
                     int cliSenderPort = 8000;
                     tempList.add(cliSenderPort);
                     tempList.add(cliSenderName);
                     userList.add(tempList);
-                    Server.append("\nAssigned '" + userList.get(0).get(1).toString() + "' on Port: " +  userList.get(0).get(0).toString() + "!");
+                    String user = userList.get(0).get(1).toString();
+                    user = user.substring(0, 1).toUpperCase() + user.substring(1);
+                    Server.append("\nAssigned '" + user + "' on Port: " +  userList.get(0).get(0).toString() + "!");
                     String portAssign = "y" + "p" + "8000";
                     sendDP(sender, portAssign);
                 }
@@ -102,7 +104,9 @@ public class NameServerSocket extends Thread {
                                 tempList.add(cliSenderPort);
                                 tempList.add(cliSenderName);
                                 userList.add(tempList);
-                                Server.append("\nAssigned '" + userList.get(i+1).get(1).toString() + "' on Port: " +  userList.get(i+1).get(0).toString() + "!");
+                                String user = userList.get(0).get(1).toString();
+                                user = user.substring(0, 1).toUpperCase() + user.substring(1);
+                                Server.append("\nAssigned '" + user + "' on Port: " +  userList.get(i+1).get(0).toString() + "!");
                                 portAssign = "y" + "p" + tmpCliPort;
                                 sendDP(sender, portAssign);
                                 break;
