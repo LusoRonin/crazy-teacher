@@ -104,7 +104,7 @@ public class NameServerSocket extends Thread {
                                 tempList.add(cliSenderPort);
                                 tempList.add(cliSenderName);
                                 userList.add(tempList);
-                                String user = userList.get(0).get(1).toString();
+                                String user = userList.get(i+1).get(1).toString();
                                 user = user.substring(0, 1).toUpperCase() + user.substring(1);
                                 Server.append("\nAssigned '" + user + "' on Port: " +  userList.get(i+1).get(0).toString() + "!");
                                 portAssign = "y" + "p" + tmpCliPort;
