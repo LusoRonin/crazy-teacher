@@ -52,11 +52,14 @@ public class Client extends Frame {
         int loginOption = JOptionPane.showConfirmDialog(null, "Do you have an account?", "Login", JOptionPane.YES_NO_OPTION);
         switch (loginOption){
             case JOptionPane.YES_OPTION:
-            user = JOptionPane.showInputDialog("Enter your username");
-            String tmpPort = JOptionPane.showInputDialog("Enter your port");
-            String loginmsg = "-l" + tmpPort + ',' + user;
-            sock.sendtoServices(8081, loginmsg);
-            break;
+                user = JOptionPane.showInputDialog("Enter your username");
+                String tmpPort = JOptionPane.showInputDialog("Enter your port");
+                String loginmsg = "-l" + tmpPort + ',' + user;
+                sock.sendtoServices(8081, loginmsg);
+                String formUser = user.substring(0, 1).toUpperCase() + user.substring(1);
+                userlab.setText("Logged in as: " + formUser);
+                sock.setConfirm(false);
+                break;
             case JOptionPane.NO_OPTION:
                 user = JOptionPane.showInputDialog("Enter your username");
                 while (!userLenValid){
