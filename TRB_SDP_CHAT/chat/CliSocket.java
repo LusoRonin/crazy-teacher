@@ -72,12 +72,12 @@ public class CliSocket extends Thread {
             byte Payload[] = DP.getData();
             int len = DP.getLength();
             String res = new String(Payload, 0, 0, len);
-            if (res.charAt(0) == 'y'){
+            if (res.charAt(0) == '-' && res.charAt(1) == 'y'){
                 confirm = true;
             }
-            if (res.length() > 1){
-                if (res.charAt(1) == 'p'){
-                    String tmp = res.substring(2);
+            if (res.length() > 2){
+                if (res.charAt(2) == 'p'){
+                    String tmp = res.substring(3);
                     int p = Integer.parseInt(tmp);
                     setPort(p);
                     regUser = true;

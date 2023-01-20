@@ -89,38 +89,6 @@ public class Client extends Frame {
                 sock.setConfirm(false);
                 break;
         }
-        /*while (!userLenValid){
-            user = JOptionPane.showInputDialog("Enter your username");
-            if (user.length() > 0){
-                userLenValid = true;
-                break;
-            }
-            else{
-                JOptionPane.showInputDialog("Username cannot be empty! Enter your username");
-            }
-        }
-        user = "-r" + user;
-        sock.sendtoServices(8081, user);
-        try{
-            TimeUnit.MILLISECONDS.sleep(100);
-            }
-            catch (InterruptedException e){
-                System.out.println("Interrupted");
-            }
-        while (!sock.getConfirm()){
-            user = JOptionPane.showInputDialog("User name invalid! Enter your username");
-            user = "-r" + user;
-            sock.sendtoServices(8081, user);
-            try{
-                TimeUnit.MILLISECONDS.sleep(100);
-            }
-            catch (InterruptedException e){
-                System.out.println("Interrupted");
-            }
-        } 
-        formUser = user.substring(2);
-        formUser = formUser.substring(0, 1).toUpperCase() + formUser.substring(1);
-        userlab.setText("Logged in as: " + formUser);*/
     }
 
     public void StartSocket() {

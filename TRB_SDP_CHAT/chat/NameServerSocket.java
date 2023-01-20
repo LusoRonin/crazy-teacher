@@ -83,7 +83,7 @@ public class NameServerSocket extends Thread {
                     String user = userList.get(0).get(1).toString();
                     user = user.substring(0, 1).toUpperCase() + user.substring(1);
                     Server.append("\nAssigned '" + user + "' on Port: " +  userList.get(0).get(0).toString() + "!");
-                    String portAssign = "y" + "p" + "8000";
+                    String portAssign = "-y" + "p" + "8000";
                     sendDP(sender, portAssign);
                 }
                 else{
