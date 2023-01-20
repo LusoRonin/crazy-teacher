@@ -54,7 +54,7 @@ public class RegistrySocket extends Thread {
                 String sendRegmsg = "-r" + regmsg;
                 sendDP(8080, sendRegmsg);
                 assignedmsg = receiveAssignDP();
-                if(assignedmsg.charAt(0) == 'y'){
+                if(assignedmsg.charAt(0) == '-' && assignedmsg.charAt(1) == 'y'){
                     String msgToSend = assignedmsg;
                     sendDP(sender, msgToSend);
                     regmsg = regmsg.substring(0, 1).toUpperCase() + regmsg.substring(1);
