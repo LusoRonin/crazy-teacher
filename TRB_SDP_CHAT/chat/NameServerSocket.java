@@ -42,10 +42,12 @@ public class NameServerSocket extends Thread {
             String assignedPort = null;
             String assignedmsg = null;
 
-            if (msg.charAt(0) == '-' && msg.charAt(1) == 'a' && msg.charAt(2) == 'm'){
-                String askmsg = msg.substring(3).toLowerCase();
+            String tag = msg.substring(0, 2);
+            
+            if (tag.equals("-m")){
+                String askmsg = msg.substring(2).toLowerCase();
                 String [] askmsgArray = askmsg.split(",");
-                assignedmsg = "-am";
+                assignedmsg = "-m";
                 for (String dest:askmsgArray){
                     for (int i = 0; i < userList.size(); i++){
                         if (userList.get(i).get(1).toString().equals(dest)){
@@ -56,7 +58,8 @@ public class NameServerSocket extends Thread {
                 }
                 sendDP(sender, assignedmsg);
             }
-            if (msg.charAt(0) == '-' && msg.charAt(1) == 'a'){
+
+            if (tag.equals("-a")){
                 String askmsg = msg.substring(2).toLowerCase();
                 for (int i = 0; i < userList.size(); i++){
                     if (userList.get(i).get(1).toString().equals(askmsg)){
@@ -68,7 +71,7 @@ public class NameServerSocket extends Thread {
                 }
             }
 
-            if (msg.charAt(0) == '-' && msg.charAt(1) == 'r'){
+            if (tag.equals("-r")){
                 String regmsg = msg.substring(2).toLowerCase();
                 if (userList.size() == 0){
                     List tempList = new ArrayList();

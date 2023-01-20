@@ -49,7 +49,47 @@ public class Client extends Frame {
     }
 
     public void setupClient(){
-        while (!userLenValid){
+        int loginOption = JOptionPane.showConfirmDialog(null, "Do you have an account?", "Login", JOptionPane.YES_NO_OPTION);
+        switch (loginOption){
+            case JOptionPane.YES_OPTION:
+            break;
+            case JOptionPane.NO_OPTION:
+                user = JOptionPane.showInputDialog("Enter your username");
+                while (!userLenValid){
+                    if (user.length() > 0){
+                        userLenValid = true;
+                        break;
+                    }
+                    else{
+                        user = JOptionPane.showInputDialog("Username cannot be empty! Enter your username");
+                    }
+                }
+                user = "-r" + user;
+                sock.sendtoServices(8081, user);
+                try{
+                    TimeUnit.MILLISECONDS.sleep(100);
+                    }
+                    catch (InterruptedException e){
+                        System.out.println("Interrupted");
+                    }
+                while (!sock.getConfirm()){
+                    user = JOptionPane.showInputDialog("User name invalid! Enter your username");
+                    user = "-r" + user;
+                    sock.sendtoServices(8081, user);
+                    try{
+                        TimeUnit.MILLISECONDS.sleep(100);
+                    }
+                    catch (InterruptedException e){
+                        System.out.println("Interrupted");
+                    }
+                } 
+                formUser = user.substring(2);
+                formUser = formUser.substring(0, 1).toUpperCase() + formUser.substring(1);
+                userlab.setText("Logged in as: " + formUser);
+                sock.setConfirm(false);
+                break;
+        }
+        /*while (!userLenValid){
             user = JOptionPane.showInputDialog("Enter your username");
             if (user.length() > 0){
                 userLenValid = true;
@@ -60,9 +100,6 @@ public class Client extends Frame {
             }
         }
         user = "-r" + user;
-        formUser = user.substring(2);
-        formUser = formUser.substring(0, 1).toUpperCase() + formUser.substring(1);
-        userlab.setText("Logged in as: " + formUser);
         sock.sendtoServices(8081, user);
         try{
             TimeUnit.MILLISECONDS.sleep(100);
@@ -80,7 +117,10 @@ public class Client extends Frame {
             catch (InterruptedException e){
                 System.out.println("Interrupted");
             }
-        }
+        } 
+        formUser = user.substring(2);
+        formUser = formUser.substring(0, 1).toUpperCase() + formUser.substring(1);
+        userlab.setText("Logged in as: " + formUser);*/
     }
 
     public void StartSocket() {
@@ -101,11 +141,11 @@ public class Client extends Frame {
             int portDest = 0;
             String msg = text.getText();
             if(addr.getText().contains(",")){
-                String askDest = "-am" + addr.getText();
+                String askDest = "-m" + addr.getText();
                 sock.sendtoServices(8080, askDest);
             }else{
-            String askDest = "-a" + addr.getText();
-            sock.sendtoServices(8080, askDest);
+                String askDest = "-a" + addr.getText();
+                sock.sendtoServices(8080, askDest);
             }
             
 

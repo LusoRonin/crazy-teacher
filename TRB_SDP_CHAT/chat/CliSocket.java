@@ -47,12 +47,10 @@ public class CliSocket extends Thread {
             int len = DP.getLength();
             String res = new String(Payload, 0, 0, len);
             if (res.charAt(0) == '-' && res.charAt(1) == 'a'){
-                if (res.charAt(2) == 'm'){
-                    destPort = Integer.parseInt(res.substring(3));
-                }
-                else{
-                    destPort = Integer.parseInt(res.substring(2));
-                }
+                destPort = Integer.parseInt(res.substring(2));
+            }
+            else if (res.charAt(0) == '-' && res.charAt(1) == 'm'){
+                destPort = Integer.parseInt(res.substring(2));
             }
             else{
                 String [] resArray = res.split(",");
