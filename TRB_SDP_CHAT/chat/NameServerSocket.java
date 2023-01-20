@@ -43,6 +43,21 @@ public class NameServerSocket extends Thread {
             String assignedmsg = null;
 
             String tag = msg.substring(0, 2);
+
+            /*if (tag.equals("-l")){
+                String loginmsg = msg.substring(2);
+                String [] loginmsgArray = loginmsg.split(",");
+                String loginName = loginmsgArray[0];
+                String loginPort = loginmsgArray[1];
+                for (int i = 0; i < userList.size(); i++){
+                    if (userList.get(i).get(1).toString().equals(loginName)){
+                        assignedPort = userList.get(i).get(0).toString();
+                        assignedmsg = "-l" + assignedPort;
+                        sendDP(sender, assignedmsg);
+                        break;
+                    }
+                }
+            }*/
             
             if (tag.equals("-m")){
                 String askmsg = msg.substring(2).toLowerCase();
@@ -110,7 +125,7 @@ public class NameServerSocket extends Thread {
                                 String user = userList.get(i+1).get(1).toString();
                                 user = user.substring(0, 1).toUpperCase() + user.substring(1);
                                 Server.append("\nAssigned '" + user + "' on Port: " +  userList.get(i+1).get(0).toString() + "!");
-                                portAssign = "y" + "p" + tmpCliPort;
+                                portAssign = "-y" + "p" + tmpCliPort;
                                 sendDP(sender, portAssign);
                                 break;
                             }  

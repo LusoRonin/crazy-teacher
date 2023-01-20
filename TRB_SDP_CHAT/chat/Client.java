@@ -52,6 +52,10 @@ public class Client extends Frame {
         int loginOption = JOptionPane.showConfirmDialog(null, "Do you have an account?", "Login", JOptionPane.YES_NO_OPTION);
         switch (loginOption){
             case JOptionPane.YES_OPTION:
+            user = JOptionPane.showInputDialog("Enter your username");
+            String tmpPort = JOptionPane.showInputDialog("Enter your port");
+            String loginmsg = "-l" + tmpPort + ',' + user;
+            sock.sendtoServices(8081, loginmsg);
             break;
             case JOptionPane.NO_OPTION:
                 user = JOptionPane.showInputDialog("Enter your username");

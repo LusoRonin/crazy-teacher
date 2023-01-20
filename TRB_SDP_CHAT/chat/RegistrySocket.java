@@ -49,7 +49,10 @@ public class RegistrySocket extends Thread {
             int len = DP.getLength();
             int sender = DP.getPort();
             String msg = new String(Payload, 0, 0, len);
-            if (msg.charAt(0) == '-' && msg.charAt(1) == 'r'){
+
+            String tag = msg.substring(0, 2);
+
+            if (tag.equals("-r")){
                 String regmsg = msg.substring(2);
                 String sendRegmsg = "-r" + regmsg;
                 sendDP(8080, sendRegmsg);
@@ -66,7 +69,36 @@ public class RegistrySocket extends Thread {
                     Registry.append("\n" + "User not assigned due to a conflict!");
                     sendDP(sender, res);
                 }
+                assignedmsg = null;
             }  
+
+            if (tag.equals("-l")){
+                String loginmsg = msg.substring(2);
+                String [] loginArray = loginmsg.split(",");
+                String loginPort = loginArray[0];
+                String loginName = loginArray[1];
+
+                for (int i = 0; i < usersList.size(); i++){
+                    if (usersList.get(i).equals(loginName)){
+                        String loginToNameService = "-a" + loginName;
+                        sendDP(8080, loginToNameService);
+                        String portToLogin = receiveAssignDP();
+                        portToLogin = portToLogin.substring(2);
+                        if (portToLogin.equals(loginPort)){
+                            Registry.append("\n" + loginName + " has logged in!");
+                            sendDP(sender, "-yl" + loginPort);
+                            break;
+                        }
+                        else{
+                            sendDP(sender, "-lnomatch"); //PORT DOES NOT MATCH
+                        }
+                    }
+                    else{
+                        sendDP(sender, "-lnotfound"); //NAME NOT FOUND
+                        break;
+                    }
+                }
+            }
         } catch (IOException e) {
         }
     }

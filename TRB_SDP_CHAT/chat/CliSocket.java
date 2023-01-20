@@ -76,7 +76,7 @@ public class CliSocket extends Thread {
                 confirm = true;
             }
             if (res.length() > 2){
-                if (res.charAt(2) == 'p'){
+                if (res.charAt(2) == 'p' || res.charAt(2) == 'l'){
                     String tmp = res.substring(3);
                     int p = Integer.parseInt(tmp);
                     setPort(p);
