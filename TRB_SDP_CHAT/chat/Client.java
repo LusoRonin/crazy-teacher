@@ -20,6 +20,7 @@ public class Client extends Frame {
     int port;
 
     boolean userLenValid = false;
+    boolean portLenValid = false;
     boolean userRegValid = false;
     
     public Client(String str) {
@@ -53,9 +54,108 @@ public class Client extends Frame {
         switch (loginOption){
             case JOptionPane.YES_OPTION:
                 user = JOptionPane.showInputDialog("Enter your username");
+                while (!userLenValid){
+                    if (user.length() > 0){
+                        userLenValid = true;
+                        break;
+                    }
+                    else{
+                        user = JOptionPane.showInputDialog("Username cannot be empty! Enter your username");
+                    }
+                }
                 String tmpPort = JOptionPane.showInputDialog("Enter your port");
+                while (!portLenValid){
+                    if (tmpPort.length() > 0){
+                        portLenValid = true;
+                        break;
+                    }
+                    else{
+                        tmpPort = JOptionPane.showInputDialog("Port cannot be empty! Enter your port");
+                    }
+                }
                 String loginmsg = "-l" + tmpPort + ',' + user;
                 sock.sendtoServices(8081, loginmsg);
+
+                userLenValid = false;
+                portLenValid = false;
+
+                while (!sock.getConfirm()){
+
+                    try{
+                        TimeUnit.MILLISECONDS.sleep(100);
+                    }
+                    catch (InterruptedException e){
+                        System.out.println("Interrupted");
+                    }
+
+                    String logmsg = sock.getLogmsg();
+
+                    try{
+                        TimeUnit.MILLISECONDS.sleep(100);
+                    }
+                    catch (InterruptedException e){
+                        System.out.println("Interrupted");
+                    }
+
+                    if (logmsg.equals("notfound")){
+                        user = JOptionPane.showInputDialog("Username not found! Enter your username");
+                        while (!userLenValid){
+                            if (user.length() > 0){
+                                userLenValid = true;
+                                break;
+                            }
+                            else{
+                                user = JOptionPane.showInputDialog("Username cannot be empty! Enter your username");
+                            }
+                        }
+                        tmpPort = JOptionPane.showInputDialog("Enter your port");
+                        while (!portLenValid){
+                            if (tmpPort.length() > 0){
+                                portLenValid = true;
+                                break;
+                            }
+                            else{
+                                tmpPort = JOptionPane.showInputDialog("Port cannot be empty! Enter your port");
+                            }
+                        }
+                        loginmsg = "-l" + tmpPort + ',' + user;
+                        sock.sendtoServices(8081, loginmsg);
+
+                        try{
+                            TimeUnit.MILLISECONDS.sleep(100);
+                        }
+                        catch (InterruptedException e){
+                            System.out.println("Interrupted");
+                        }  
+                    }
+                    else{
+                        String logmsgArray [] = logmsg.split(",");
+                        String errormsg = logmsgArray[0];
+                        String trueport = logmsgArray[1];
+                        if (errormsg.equals("nomatch")){
+                            JOptionPane.showMessageDialog(null, "PIN does not match!\nREMEMBER YOUR PIN IS: " + trueport , "Error", JOptionPane.ERROR_MESSAGE);
+                            while(!portLenValid){
+                                tmpPort = JOptionPane.showInputDialog("Enter your port");
+                                if (tmpPort.length() > 0){
+                                    portLenValid = true;
+                                    break;
+                                }
+                                else{
+                                    tmpPort = JOptionPane.showInputDialog("Port cannot be empty! Enter your port");
+                                }
+                            }
+                            loginmsg = "-l" + tmpPort + ',' + user;
+                            sock.sendtoServices(8081, loginmsg);
+                            try{
+                                TimeUnit.MILLISECONDS.sleep(100);
+                            }
+                            catch (InterruptedException e){
+                                System.out.println("Interrupted");
+                            }
+                        }
+                    }
+                }
+
                 String formUser = user.substring(0, 1).toUpperCase() + user.substring(1);
                 userlab.setText("Logged in as: " + formUser);
                 sock.setConfirm(false);

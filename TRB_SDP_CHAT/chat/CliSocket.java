@@ -14,6 +14,8 @@ public class CliSocket extends Thread {
     boolean newPort = false;
     boolean confirm = false;
 
+    String logmsg = null;
+
     CliSocket(TextArea ta) {
         ecran = ta;
     }
@@ -38,6 +40,14 @@ public class CliSocket extends Thread {
         destPort = p;
     }
 
+    public String getLogmsg(){
+        return logmsg;
+    }
+
+    public void setLogmsg(String l){
+        logmsg = l;
+    }
+
     public void receiveDP() {
         try {
             DatagramPacket DP = new DatagramPacket(bp, 1024);
@@ -46,6 +56,7 @@ public class CliSocket extends Thread {
             byte Payload[] = DP.getData();
             int len = DP.getLength();
             String res = new String(Payload, 0, 0, len);
+            String tag = res.substring(0, 2);
             if (res.charAt(0) == '-' && res.charAt(1) == 'a'){
                 destPort = Integer.parseInt(res.substring(2));
             }
@@ -72,17 +83,21 @@ public class CliSocket extends Thread {
             byte Payload[] = DP.getData();
             int len = DP.getLength();
             String res = new String(Payload, 0, 0, len);
+            String tag = res.substring(0, 2);
             if (res.charAt(0) == '-' && res.charAt(1) == 'y'){
                 confirm = true;
-            }
-            if (res.length() > 2){
-                if (res.charAt(2) == 'p' || res.charAt(2) == 'l'){
-                    String tmp = res.substring(3);
-                    int p = Integer.parseInt(tmp);
-                    setPort(p);
-                    regUser = true;
-                    ecran.append("Welcome to the chat! Your PIN is: " + p + ".\n");
+                if (res.length() > 2){
+                    if (res.charAt(2) == 'p' || res.charAt(2) == 'l'){
+                        String tmp = res.substring(3);
+                        int p = Integer.parseInt(tmp);
+                        setPort(p);
+                        regUser = true;
+                        ecran.append("Welcome to the chat! Your PIN is: " + p + ".\n");
+                    }
                 }
+            }   
+            if (res.charAt(0) == '-' && res.charAt(1) == 'n' && res.charAt(2) == 'l'){
+                logmsg = res.substring(3);
             }
 
         } catch (IOException e) {
