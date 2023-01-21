@@ -44,17 +44,18 @@ public class NameServerSocket extends Thread {
 
             String tag = msg.substring(0, 2);
 
-            /*if (tag.equals("-l")){
-                String loginmsg = msg.substring(2);
-                String [] loginmsgArray = loginmsg.split(",");
-                String loginName = loginmsgArray[0];
-                String loginPort = loginmsgArray[1];
-                for (int i = 0; i < userList.size(); i++){
-                    if (userList.get(i).get(1).toString().equals(loginName)){
-                        assignedPort = userList.get(i).get(0).toString();
-                        assignedmsg = "-l" + assignedPort;
-                        sendDP(sender, assignedmsg);
-                        break;
+            /*if (tag.equals("-c")){
+                if (userList.size() > 0){
+                    for (int i = 0; i < userList.size(); i++){
+                        if (i == userList.size() - 1){
+                            String lastPort = userList.get(i).get(0).toString();
+                            int lastPortInt = Integer.parseInt(lastPort);
+                            if (lastPortInt == 8000){
+                                String fullmsg = "-cfull";
+                                Server.append("SERVICE FULL!");
+                                sendDP(8081, fullmsg);
+                            }
+                        }
                     }
                 }
             }*/
