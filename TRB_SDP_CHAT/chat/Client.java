@@ -64,15 +64,6 @@ public class Client extends Frame {
                     }
                 }
                 String tmpPort = JOptionPane.showInputDialog("Enter your port");
-                while (!portLenValid){
-                    if (tmpPort.length() > 0){
-                        portLenValid = true;
-                        break;
-                    }
-                    else{
-                        tmpPort = JOptionPane.showInputDialog("Port cannot be empty! Enter your port");
-                    }
-                }
                 String loginmsg = "-l" + tmpPort + ',' + user;
                 sock.sendtoServices(8081, loginmsg);
 
@@ -109,15 +100,6 @@ public class Client extends Frame {
                             }
                         }
                         tmpPort = JOptionPane.showInputDialog("Enter your port");
-                        while (!portLenValid){
-                            if (tmpPort.length() > 0){
-                                portLenValid = true;
-                                break;
-                            }
-                            else{
-                                tmpPort = JOptionPane.showInputDialog("Port cannot be empty! Enter your port");
-                            }
-                        }
                         loginmsg = "-l" + tmpPort + ',' + user;
                         sock.sendtoServices(8081, loginmsg);
 
@@ -134,16 +116,7 @@ public class Client extends Frame {
                         String trueport = logmsgArray[1];
                         if (errormsg.equals("nomatch")){
                             JOptionPane.showMessageDialog(null, "PIN does not match!\nREMEMBER YOUR PIN IS: " + trueport , "Error", JOptionPane.ERROR_MESSAGE);
-                            while(!portLenValid){
-                                tmpPort = JOptionPane.showInputDialog("Enter your port");
-                                if (tmpPort.length() > 0){
-                                    portLenValid = true;
-                                    break;
-                                }
-                                else{
-                                    tmpPort = JOptionPane.showInputDialog("Port cannot be empty! Enter your port");
-                                }
-                            }
+                            tmpPort = JOptionPane.showInputDialog("Enter your port");
                             loginmsg = "-l" + tmpPort + ',' + user;
                             sock.sendtoServices(8081, loginmsg);
                             try{
