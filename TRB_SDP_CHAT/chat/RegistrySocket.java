@@ -73,6 +73,7 @@ public class RegistrySocket extends Thread {
             }  
 
             if (tag.equals("-l")){
+                boolean found = false;
                 String loginmsg = msg.substring(2);
                 String [] loginArray = loginmsg.split(",");
                 String loginPort = loginArray[0];
@@ -80,6 +81,7 @@ public class RegistrySocket extends Thread {
 
                 for (int i = 0; i < usersList.size(); i++){
                     if (usersList.get(i).equals(loginName)){
+                        found = true;
                         String loginToNameService = "-a" + loginName;
                         sendDP(8080, loginToNameService);
                         String portToLogin = receiveAssignDP();
@@ -90,13 +92,13 @@ public class RegistrySocket extends Thread {
                             break;
                         }
                         else{
-                            sendDP(sender, "-lnomatch"); //PORT DOES NOT MATCH
+                            String errormsg = "-nlnomatch"  + "," + portToLogin;
+                            sendDP(sender, errormsg); //PORT DOES NOT MATCH
                         }
                     }
-                    else{
-                        sendDP(sender, "-lnotfound"); //NAME NOT FOUND
-                        break;
-                    }
+                }
+                if (!found){
+                    sendDP(sender, "-nlnotfound"); //NAME NOT FOUND
                 }
             }
         } catch (IOException e) {
