@@ -84,6 +84,11 @@ public class CliSocket extends Thread {
             int len = DP.getLength();
             String res = new String(Payload, 0, 0, len);
             String tag = res.substring(0, 2);
+
+            if (res.charAt(0) == '-' && res.charAt(1) == 'n'){
+                logmsg = res.substring(2);             
+            }
+
             if (res.charAt(0) == '-' && res.charAt(1) == 'y'){
                 confirm = true;
                 if (res.length() > 2){

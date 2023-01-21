@@ -52,7 +52,28 @@ public class RegistrySocket extends Thread {
 
             String tag = msg.substring(0, 2);
 
+            if (tag.equals("-c")){
+                if (usersList.size() == 11){
+                    sendDP(sender, "-nfull");
+                }
+            }
+
             if (tag.equals("-r")){
+
+                /*String fullcheck = "-c";
+                sendDP(8080, fullcheck);
+                
+                try{
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                }
+
+                fullcheck = receiveAssignDP();
+
+                if (fullcheck.equals("-cfull")){
+                    sendDP(sender, "-nfull");
+                }*/
+
                 String regmsg = msg.substring(2);
                 String sendRegmsg = "-r" + regmsg;
                 sendDP(8080, sendRegmsg);
@@ -62,7 +83,7 @@ public class RegistrySocket extends Thread {
                     usersList.add(regmsg);
                     sendDP(sender, msgToSend);
                     regmsg = regmsg.substring(0, 1).toUpperCase() + regmsg.substring(1);
-                    Registry.append("\nCreated: " + regmsg + "!");
+                    Registry.append("\nCreated: "  + regmsg  + "!");
                 }
                 else{
                     String res = "n";
@@ -70,7 +91,7 @@ public class RegistrySocket extends Thread {
                     sendDP(sender, res);
                 }
                 assignedmsg = null;
-            }  
+            }
 
             if (tag.equals("-l")){
                 boolean found = false;
@@ -87,17 +108,19 @@ public class RegistrySocket extends Thread {
                         String portToLogin = receiveAssignDP();
                         portToLogin = portToLogin.substring(2);
                         if (portToLogin.equals(loginPort)){
-                            Registry.append("\n" + loginName + " has logged in!");
+                            Registry.append("\nJust logged in: " +  loginName + "!");
                             sendDP(sender, "-yl" + loginPort);
                             break;
                         }
                         else{
                             String errormsg = "-nlnomatch"  + "," + portToLogin;
+                            Registry.append("\nFailed to login: "  + loginName  + " sending PIN: " + portToLogin + "!");
                             sendDP(sender, errormsg); //PORT DOES NOT MATCH
                         }
                     }
                 }
                 if (!found){
+                    Registry.append("\nFailed to login: " + "'"  + loginName + "'" + " doesn't exist!");
                     sendDP(sender, "-nlnotfound"); //NAME NOT FOUND
                 }
             }
