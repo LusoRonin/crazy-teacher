@@ -164,7 +164,7 @@ public class Client extends Frame {
                         user = "-r" + user;
                         sock.sendtoServices(8081, user);
                         try{
-                            TimeUnit.MILLISECONDS.sleep(100);
+                            TimeUnit.MILLISECONDS.sleep(500);
                         }
                         catch (InterruptedException e){
                             System.out.println("Interrupted");

@@ -82,25 +82,34 @@ public class CliSocket extends Thread {
             String res = new String(Payload, 0, 0, len);
             String tag = res.substring(0, 2);
 
-            if (tag.equals("-n")){
-                logmsg = res.substring(2);             
-            }
-            if (tag.equals("-n") && res.charAt(2) == 'l'){
-                logmsg = res.substring(3);
-            }
-            if (tag.equals("-y")){
-                confirm = true;
-                if (res.length() > 2){
-                    if (res.charAt(2) == 'p' || res.charAt(2) == 'l'){
-                        logmsg = "accepted";
-                        String tmp = res.substring(3);
-                        int p = Integer.parseInt(tmp);
-                        setPort(p);
-                        regUser = true;
-                        ecran.append("Welcome to the chat! Your PIN is: " + p + ".\n");
+            switch (tag) {
+                case "-n":
+                    if (res.length() < 3){
+                        break;
+                    }else{
+                        if (res.charAt(2) == 'l'){
+                            logmsg = res.substring(3);
+                            break;
+                        }
+                        else{
+                            logmsg = res.substring(2);
+                            break;
+                        }
                     }
-                }
-            }    
+                case "-y":
+                    confirm = true;
+                    if (res.length() > 2){
+                        if (res.charAt(2) == 'p' || res.charAt(2) == 'l'){
+                            logmsg = "accepted";
+                            String tmp = res.substring(3);
+                            int p = Integer.parseInt(tmp);
+                            setPort(p);
+                            regUser = true;
+                            ecran.append("Welcome to the chat! Your PIN is: " + p + ".\n");
+                        }
+                    }
+                    break;
+            } 
         } catch (IOException e) {
         }
     }
