@@ -1,0 +1,36 @@
+{
+  "name": "crazy-teacher",
+  "version": "1.0.0",
+  "description": "𝒜 𝓇𝑒𝓅𝑜𝓈𝒾𝓉𝑜𝓇𝓎 𝒻𝑜𝓇 𝓌𝑒𝒷 𝒷𝒶𝓈𝑒𝒹 𝓅𝓇𝑜𝒿𝑒𝒸𝓉𝓈.",
+  "main": "index.js",
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d public",
+    "deploy:dev": "gh-pages -d public -b dev",
+    "build": "node index.js",
+    "build:dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "pmfs1",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.17.1",
+    "fetch": "^1.1.0",
+    "fs": "0.0.1-security",
+    "gh-pages": "^4.0.0",
+    "https": "^1.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "mysql": "^2.18.1",
+    "node-fetch": "^3.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:pmfs1/crazy-teacher.git"
+  }
+}
