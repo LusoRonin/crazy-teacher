@@ -241,6 +241,7 @@ public class Client extends Frame {
             String tmpPortDest = null; // CREATES A NEW STRING: THIS STRING IS USED TO STORE THE TEMPORARY PORT DESTINATION
             String msg = text.getText(); // CREATES A NEW STRING: THIS STRING IS USED TO STORE THE MESSAGE
             if (msg.equals("")) { // IF THE MESSAGE IS EQUAL TO NOTHING
+                ecran.append("\n" + "-Your message was not sent because it was empty!-");
                 return true; // RETURNS TRUE
             } //END IF
             else {
@@ -262,9 +263,11 @@ public class Client extends Frame {
                 int iter = 0; // CREATES A NEW INTEGER: THIS INTEGER IS USED TO STORE THE ITERATOR
                 String destArray[] = addr.getText().split(","); // CREATES A NEW STRING ARRAY: THIS STRING ARRAY IS USED TO STORE THE DESTINATION ARRAY
                 for (int j = 0; j < tmpPortDest.length(); j = j + 4) { // FOR LOOP: THIS LOOP IS USED TO ITERATE THROUGH THE TEMPORARY PORT DESTINATION
+                    System.out.print("HERE");
                     String strPortDest = tmpPortDest.substring(j, j + 4); // CREATES A NEW STRING: THIS STRING IS USED TO STORE THE STRING PORT DESTINATION
+                    System.out.print("\n" + strPortDest);
                     if (strPortDest.equals("1234")) { // IF THE STRING PORT DESTINATION IS EQUAL TO 1234
-                        ecran.append("\n" + "-Didn't send to user '" + destArray[iter] + "' because it was not found!"); // APPENDS THE TEXT TO THE TEXT AREA WITH THE MESSAGE
+                        ecran.append("\n" + "-Didn't send to user '" + destArray[iter] + "' because it was not found!-"); // APPENDS THE TEXT TO THE TEXT AREA WITH THE MESSAGE
                     } else { // IF THE STRING PORT DESTINATION IS NOT EQUAL TO 1234
                         int singlePort = Integer.parseInt(strPortDest); // CREATES A NEW INTEGER: THIS INTEGER IS USED TO STORE THE SINGLE PORT
                         sock.sendDP(singlePort, msg, "127.0.0.1"); // SENDS THE MESSAGE TO THE SINGLE PORT
