@@ -60,20 +60,6 @@ public class RegistrySocket extends Thread {
 
             if (tag.equals("-r")){
 
-                /*String fullcheck = "-c";
-                sendDP(8080, fullcheck);
-                
-                try{
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                }
-
-                fullcheck = receiveAssignDP();
-
-                if (fullcheck.equals("-cfull")){
-                    sendDP(sender, "-nfull");
-                }*/
-
                 String regmsg = msg.substring(2);
                 String sendRegmsg = "-r" + regmsg;
                 sendDP(8080, sendRegmsg);

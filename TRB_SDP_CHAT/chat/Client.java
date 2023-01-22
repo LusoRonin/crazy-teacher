@@ -228,7 +228,7 @@ public class Client extends Frame {
 
             ecran.appendText("\n" + "You: " + msg);
 
-            msg = user + ',' + msg;
+            msg = user + '_' + msg;
             
             for (int j = 0; j < Integer.toString(portDest).length(); j = j + 4){
                 String strPortDest = Integer.toString(portDest).substring(j, j + 4);

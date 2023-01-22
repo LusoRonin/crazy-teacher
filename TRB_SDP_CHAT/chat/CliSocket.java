@@ -64,7 +64,7 @@ public class CliSocket extends Thread {
                 destPort = Integer.parseInt(res.substring(2));
             }
             else{
-                String [] resArray = res.split(",");
+                String [] resArray = res.split("_");
                 String userSent = resArray[0].substring(2);
                 userSent = userSent.substring(0, 1).toUpperCase() + userSent.substring(1);
                 String newRes = resArray[1];

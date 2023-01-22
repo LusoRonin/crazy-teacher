@@ -43,25 +43,10 @@ public class NameServerSocket extends Thread {
             String assignedmsg = null;
 
             String tag = msg.substring(0, 2);
-
-            /*if (tag.equals("-c")){
-                if (userList.size() > 0){
-                    for (int i = 0; i < userList.size(); i++){
-                        if (i == userList.size() - 1){
-                            String lastPort = userList.get(i).get(0).toString();
-                            int lastPortInt = Integer.parseInt(lastPort);
-                            if (lastPortInt == 8000){
-                                String fullmsg = "-cfull";
-                                Server.append("SERVICE FULL!");
-                                sendDP(8081, fullmsg);
-                            }
-                        }
-                    }
-                }
-            }*/
             
             if (tag.equals("-m")){
                 String askmsg = msg.substring(2).toLowerCase();
+                Server.append("\n"+askmsg);
                 String [] askmsgArray = askmsg.split(",");
                 assignedmsg = "-m";
                 for (String dest:askmsgArray){
