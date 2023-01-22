@@ -86,7 +86,6 @@ public class Client extends Frame {
                         break; // BREAKS OUT OF THE SWITCH STATEMENT
                     } // END OF IF
                     String loginmsg = "-l" + tmpPort + ',' + user.toLowerCase(); // CREATES A NEW STRING: THIS STRING IS USED TO SEND THE LOGIN MESSAGE TO THE SERVER.
-                    user = "-l" + user;
                     sock.sendtoServices(8081, loginmsg); // SENDS THE LOGIN MESSAGE TO THE SERVER
                     userLenValid = false; // SETS THE USERNAME LENGTH VALIDATION TO FALSE
                     portLenValid = false; // SETS THE PORT LENGTH VALIDATION TO FALSE
@@ -123,7 +122,6 @@ public class Client extends Frame {
                                 break; // BREAKS OUT OF THE SWITCH STATEMENT
                             } // END OF IF
                             loginmsg = "-l" + tmpPort + ',' + user.toLowerCase(); // CREATES A NEW STRING: THIS STRING IS USED TO SEND THE LOGIN MESSAGE TO THE SERVER.
-                            user = "-l" + user;
                             sock.sendtoServices(8081, loginmsg); // SENDS THE LOGIN MESSAGE TO THE SERVER
                             try { // TRY STATEMENT
                                 TimeUnit.MILLISECONDS.sleep(100); // SLEEPS THE THREAD FOR 100 MILLISECONDS
@@ -142,7 +140,6 @@ public class Client extends Frame {
                                 break; // BREAKS OUT OF THE SWITCH STATEMENT
                             } // END OF IF
                             loginmsg = "-l" + tmpPort + ',' + user.toLowerCase(); // CREATES A NEW STRING: THIS STRING IS USED TO SEND THE LOGIN MESSAGE TO THE SERVER.
-                            user = "-l" + user;
                             sock.sendtoServices(8081, loginmsg); // SENDS THE LOGIN MESSAGE TO THE SERVER
                             try { // TRY STATEMENT
                                 TimeUnit.MILLISECONDS.sleep(100); // SLEEPS THE THREAD FOR 100 MILLISECONDS
@@ -152,6 +149,7 @@ public class Client extends Frame {
                         }
                     } // END OF WHILE
                     if (tmpPort != null) { // IF THE PORT IS NOT NULL
+                        user = "-l" + user;
                         formUser = user.substring(2); // CREATES A NEW STRING: THIS STRING IS USED TO STORE THE FORMATTED USERNAME
                         formUser = formUser.substring(0, 1).toUpperCase() + formUser.substring(1); // CREATES A NEW STRING: THIS STRING IS USED TO STORE THE FORMATTED USERNAME
                         userlab.setText("Logged in as: " + formUser); // SETS THE TEXT OF THE USER LABEL TO THE FORMATTED USERNAME
