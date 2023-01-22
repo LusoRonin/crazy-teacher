@@ -1,0 +1,8 @@
+// {
+//     "NAME": "Model 870 Tactical",
+//     "DESCRIPTION": "<b>Your tactical edge in any situation.</b> Remington tactical shotguns are rugged, ultra-dependable and continually evolve as they're called to serve in new, increasingly demanding environments. Built on our legendary pump action that's become the gold standard for high-risk applications, the model 870™ tactical Magpul includes a quick pointing 18 1/2\\\" barrel along with a black Magpul stock and fore-end.",
+//     "PRICE": "399",
+//     "CATEGORY": "Shotguns",
+//     "IMAGE_URL": "assets/product_images/model_870_tactical_magpul.svg",
+//     "ID": "model_870_tactical"
+// }
