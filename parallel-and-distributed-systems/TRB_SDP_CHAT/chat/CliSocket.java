@@ -73,7 +73,7 @@ public class CliSocket extends Thread {
             } // END IF
             else { // ELSE IF THE TAG IS NOT -a OR -m THEN
                 String[] resArray = res.split("_"); // CREATES A NEW STRING ARRAY AND SPLIT THE STRING BY THE UNDERSCORE
-                String userSent = resArray[0]; // CREATES A NEW STRING WITH THE FIRST TWO CHARACTERS OF THE STRING
+                String userSent = resArray[0].substring(2); // CREATES A NEW STRING WITH THE FIRST TWO CHARACTERS OF THE STRING
                 userSent = userSent.substring(0, 1).toUpperCase() + userSent.substring(1); // CREATES A NEW STRING WITH THE FIRST CHARACTER IN UPPERCASE
                 String newRes = resArray[1]; // CREATES A NEW STRING WITH THE SECOND ELEMENT OF THE STRING ARRAY
                 ecran.appendText("\n" + userSent + ": " + newRes); // APPENDS THE TEXT TO THE TEXT AREA
