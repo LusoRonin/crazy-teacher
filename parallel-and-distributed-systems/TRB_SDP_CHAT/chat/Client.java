@@ -242,35 +242,40 @@ public class Client extends Frame {
         if (i.target == Send) { // IF THE EVENT TARGET IS EQUAL TO SEND
             String tmpPortDest = null; // CREATES A NEW STRING: THIS STRING IS USED TO STORE THE TEMPORARY PORT DESTINATION
             String msg = text.getText(); // CREATES A NEW STRING: THIS STRING IS USED TO STORE THE MESSAGE
-            if (addr.getText().contains(",")) { // IF THE ADDRESS TEXT FIELD CONTAINS A COMMA
-                String askDest = "-m" + addr.getText(); // CREATES A NEW STRING: THIS STRING IS USED TO SEND THE ASK DESTINATION MESSAGE TO THE SERVER
-                sock.sendtoServices(8080, askDest); // SENDS THE ASK DESTINATION MESSAGE TO THE SERVER
-            } else { // IF THE ADDRESS TEXT FIELD DOES NOT CONTAIN A COMMA
-                String askDest = "-a" + addr.getText(); // CREATES A NEW STRING: THIS STRING IS USED TO SEND THE ASK DESTINATION MESSAGE TO THE SERVER
-                sock.sendtoServices(8080, askDest); // SENDS THE ASK DESTINATION MESSAGE TO THE SERVER
-            } // END OF ELSE
-            try { // TRY STATEMENT
-                TimeUnit.MILLISECONDS.sleep(100); // SLEEPS THE THREAD FOR 100 MILLISECONDS
-            } catch (InterruptedException e) { // CATCHES THE INTERRUPTED EXCEPTION
-                System.out.println("Interrupted"); // PRINTS THE INTERRUPTED EXCEPTION
-            } // END OF CATCH
-            tmpPortDest = sock.getdestPort(); // SETS THE TEMPORARY PORT DESTINATION TO THE DESTINATION PORT
-            ecran.appendText("\n" + "You: " + msg); // APPENDS THE TEXT TO THE TEXT AREA WITH THE MESSAGE
-            msg = user + '_' + msg; // CREATES A NEW STRING: THIS STRING IS USED TO STORE THE MESSAGE
-            int iter = 0; // CREATES A NEW INTEGER: THIS INTEGER IS USED TO STORE THE ITERATOR
-            String destArray[] = addr.getText().split(","); // CREATES A NEW STRING ARRAY: THIS STRING ARRAY IS USED TO STORE THE DESTINATION ARRAY
-            for (int j = 0; j < tmpPortDest.length(); j = j + 4) { // FOR LOOP: THIS LOOP IS USED TO ITERATE THROUGH THE TEMPORARY PORT DESTINATION
-                String strPortDest = tmpPortDest.substring(j, j + 4); // CREATES A NEW STRING: THIS STRING IS USED TO STORE THE STRING PORT DESTINATION
-                if (strPortDest.equals("1234")) { // IF THE STRING PORT DESTINATION IS EQUAL TO 1234
-                    ecran.append("\n" + "-Didn't send to user '" + destArray[iter] + "' because it was not found!"); // APPENDS THE TEXT TO THE TEXT AREA WITH THE MESSAGE
-                } else { // IF THE STRING PORT DESTINATION IS NOT EQUAL TO 1234
-                    int singlePort = Integer.parseInt(strPortDest); // CREATES A NEW INTEGER: THIS INTEGER IS USED TO STORE THE SINGLE PORT
-                    sock.sendDP(singlePort, msg, "127.0.0.1"); // SENDS THE MESSAGE TO THE SINGLE PORT
+            if (msg.equals("")) { // IF THE MESSAGE IS EQUAL TO NOTHING
+                return true; // RETURNS TRUE
+            } //END IF
+            else {
+                if (addr.getText().contains(",")) { // IF THE ADDRESS TEXT FIELD CONTAINS A COMMA
+                    String askDest = "-m" + addr.getText(); // CREATES A NEW STRING: THIS STRING IS USED TO SEND THE ASK DESTINATION MESSAGE TO THE SERVER
+                    sock.sendtoServices(8080, askDest); // SENDS THE ASK DESTINATION MESSAGE TO THE SERVER
+                } else { // IF THE ADDRESS TEXT FIELD DOES NOT CONTAIN A COMMA
+                    String askDest = "-a" + addr.getText(); // CREATES A NEW STRING: THIS STRING IS USED TO SEND THE ASK DESTINATION MESSAGE TO THE SERVER
+                    sock.sendtoServices(8080, askDest); // SENDS THE ASK DESTINATION MESSAGE TO THE SERVER
                 } // END OF ELSE
-                iter++; // INCREMENTS THE ITERATOR
-            } // END OF FOR LOOP
-            text.setText(""); // SETS THE TEXT FIELD TO BLANK
-            return true; // RETURNS TRUE
+                try { // TRY STATEMENT
+                    TimeUnit.MILLISECONDS.sleep(100); // SLEEPS THE THREAD FOR 100 MILLISECONDS
+                } catch (InterruptedException e) { // CATCHES THE INTERRUPTED EXCEPTION
+                    System.out.println("Interrupted"); // PRINTS THE INTERRUPTED EXCEPTION
+                } // END OF CATCH
+                tmpPortDest = sock.getdestPort(); // SETS THE TEMPORARY PORT DESTINATION TO THE DESTINATION PORT
+                ecran.appendText("\n" + "You: " + msg); // APPENDS THE TEXT TO THE TEXT AREA WITH THE MESSAGE
+                msg = user + '_' + msg; // CREATES A NEW STRING: THIS STRING IS USED TO STORE THE MESSAGE
+                int iter = 0; // CREATES A NEW INTEGER: THIS INTEGER IS USED TO STORE THE ITERATOR
+                String destArray[] = addr.getText().split(","); // CREATES A NEW STRING ARRAY: THIS STRING ARRAY IS USED TO STORE THE DESTINATION ARRAY
+                for (int j = 0; j < tmpPortDest.length(); j = j + 4) { // FOR LOOP: THIS LOOP IS USED TO ITERATE THROUGH THE TEMPORARY PORT DESTINATION
+                    String strPortDest = tmpPortDest.substring(j, j + 4); // CREATES A NEW STRING: THIS STRING IS USED TO STORE THE STRING PORT DESTINATION
+                    if (strPortDest.equals("1234")) { // IF THE STRING PORT DESTINATION IS EQUAL TO 1234
+                        ecran.append("\n" + "-Didn't send to user '" + destArray[iter] + "' because it was not found!"); // APPENDS THE TEXT TO THE TEXT AREA WITH THE MESSAGE
+                    } else { // IF THE STRING PORT DESTINATION IS NOT EQUAL TO 1234
+                        int singlePort = Integer.parseInt(strPortDest); // CREATES A NEW INTEGER: THIS INTEGER IS USED TO STORE THE SINGLE PORT
+                        sock.sendDP(singlePort, msg, "127.0.0.1"); // SENDS THE MESSAGE TO THE SINGLE PORT
+                    } // END OF ELSE
+                    iter++; // INCREMENTS THE ITERATOR
+                } // END OF FOR LOOP
+                text.setText(""); // SETS THE TEXT FIELD TO BLANK
+                return true; // RETURNS TRUE
+            }
         } // END OF IF
         return false; // RETURNS FALSE
     } // END OF ACTION
