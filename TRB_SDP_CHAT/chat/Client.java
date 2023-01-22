@@ -64,16 +64,14 @@ public class Client extends Frame {
                     }
                 }
                 String tmpPort = JOptionPane.showInputDialog("Enter your port");
-                String loginmsg = "-l" + tmpPort + ',' + user;
+                String loginmsg = "-l" + tmpPort + ',' + user.toLowerCase();
                 sock.sendtoServices(8081, loginmsg);
-
                 userLenValid = false;
                 portLenValid = false;
-
                 while (!sock.getConfirm()){
 
                     try{
-                        TimeUnit.MILLISECONDS.sleep(100);
+                        TimeUnit.MILLISECONDS.sleep(500);
                     }
                     catch (InterruptedException e){
                         System.out.println("Interrupted");
@@ -82,12 +80,11 @@ public class Client extends Frame {
                     String logmsg = sock.getLogmsg();
 
                     try{
-                        TimeUnit.MILLISECONDS.sleep(100);
+                        TimeUnit.MILLISECONDS.sleep(500);
                     }
                     catch (InterruptedException e){
                         System.out.println("Interrupted");
                     }
-
                     if (logmsg.equals("notfound")){
                         user = JOptionPane.showInputDialog("Username not found! Enter your username");
                         while (!userLenValid){
@@ -100,7 +97,7 @@ public class Client extends Frame {
                             }
                         }
                         tmpPort = JOptionPane.showInputDialog("Enter your port");
-                        loginmsg = "-l" + tmpPort + ',' + user;
+                        loginmsg = "-l" + tmpPort + ',' + user.toLowerCase();
                         sock.sendtoServices(8081, loginmsg);
 
                         try{
@@ -110,33 +107,28 @@ public class Client extends Frame {
                             System.out.println("Interrupted");
                         }  
                     }
-                    else{
+                    else if (logmsg.contains(",")){
                         String logmsgArray [] = logmsg.split(",");
                         String errormsg = logmsgArray[0];
                         String trueport = logmsgArray[1];
-                        if (errormsg.equals("nomatch")){
-                            JOptionPane.showMessageDialog(null, "PIN does not match!\nREMEMBER YOUR PIN IS: " + trueport , "Error", JOptionPane.ERROR_MESSAGE);
-                            tmpPort = JOptionPane.showInputDialog("Enter your port");
-                            loginmsg = "-l" + tmpPort + ',' + user;
-                            sock.sendtoServices(8081, loginmsg);
-                            try{
-                                TimeUnit.MILLISECONDS.sleep(100);
-                            }
-                            catch (InterruptedException e){
-                                System.out.println("Interrupted");
-                            }
+                        JOptionPane.showMessageDialog(null, "PIN does not match!\nREMEMBER YOUR PIN IS: " + trueport , errormsg.toUpperCase(), JOptionPane.ERROR_MESSAGE);
+                        tmpPort = JOptionPane.showInputDialog("Enter your port");
+                        loginmsg = "-l" + tmpPort + ',' + user.toLowerCase();
+                        sock.sendtoServices(8081, loginmsg);
+                        try{
+                            TimeUnit.MILLISECONDS.sleep(100);
+                        }
+                        catch (InterruptedException e){
+                            System.out.println("Interrupted");
                         }
                     }
                 }
-
                 String formUser = user.substring(0, 1).toUpperCase() + user.substring(1);
                 userlab.setText("Logged in as: " + formUser);
                 sock.setConfirm(false);
                 break;
             case JOptionPane.NO_OPTION:
-
                 sock.sendtoServices(8081, "-c");
-
                 try{
                     TimeUnit.MILLISECONDS.sleep(500);
                 }
@@ -160,7 +152,6 @@ public class Client extends Frame {
                         }
                     }
                     user = "-r" + user;
-
                     sock.sendtoServices(8081, user);
                     try{
                         TimeUnit.MILLISECONDS.sleep(500);
@@ -168,9 +159,6 @@ public class Client extends Frame {
                         catch (InterruptedException e){
                             System.out.println("Interrupted");
                         }
-
-                    boolean confirm = sock.getConfirm();
-                    
                     while (!sock.getConfirm()){
                         user = JOptionPane.showInputDialog("User name invalid! Enter your username");
                         user = "-r" + user;

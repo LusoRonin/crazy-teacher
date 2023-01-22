@@ -46,7 +46,6 @@ public class NameServerSocket extends Thread {
             
             if (tag.equals("-m")){
                 String askmsg = msg.substring(2).toLowerCase();
-                Server.append("\n"+askmsg);
                 String [] askmsgArray = askmsg.split(",");
                 assignedmsg = "-m";
                 for (String dest:askmsgArray){

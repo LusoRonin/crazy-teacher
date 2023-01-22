@@ -57,10 +57,7 @@ public class CliSocket extends Thread {
             int len = DP.getLength();
             String res = new String(Payload, 0, 0, len);
             String tag = res.substring(0, 2);
-            if (res.charAt(0) == '-' && res.charAt(1) == 'a'){
-                destPort = Integer.parseInt(res.substring(2));
-            }
-            else if (res.charAt(0) == '-' && res.charAt(1) == 'm'){
+            if (tag.equals("-a") || tag.equals("-m")){
                 destPort = Integer.parseInt(res.substring(2));
             }
             else{
@@ -85,14 +82,17 @@ public class CliSocket extends Thread {
             String res = new String(Payload, 0, 0, len);
             String tag = res.substring(0, 2);
 
-            if (res.charAt(0) == '-' && res.charAt(1) == 'n'){
+            if (tag.equals("-n")){
                 logmsg = res.substring(2);             
             }
-
-            if (res.charAt(0) == '-' && res.charAt(1) == 'y'){
+            if (tag.equals("-n") && res.charAt(2) == 'l'){
+                logmsg = res.substring(3);
+            }
+            if (tag.equals("-y")){
                 confirm = true;
                 if (res.length() > 2){
                     if (res.charAt(2) == 'p' || res.charAt(2) == 'l'){
+                        logmsg = "accepted";
                         String tmp = res.substring(3);
                         int p = Integer.parseInt(tmp);
                         setPort(p);
@@ -100,11 +100,7 @@ public class CliSocket extends Thread {
                         ecran.append("Welcome to the chat! Your PIN is: " + p + ".\n");
                     }
                 }
-            }   
-            if (res.charAt(0) == '-' && res.charAt(1) == 'n' && res.charAt(2) == 'l'){
-                logmsg = res.substring(3);
-            }
-
+            }    
         } catch (IOException e) {
         }
     }
