@@ -1,0 +1,4 @@
+// {
+//     "NAME": "Shotguns",
+//     "DESCRIPTION": "A shotgun is a firearm that is usually designed to be fired from the shoulder, which uses the energy of a fixed shell to fire a number of small spherical pellets called shot, or a solid projectile called a slug."
+// }
