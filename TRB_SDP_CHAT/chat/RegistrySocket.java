@@ -52,7 +52,65 @@ public class RegistrySocket extends Thread {
 
             String tag = msg.substring(0, 2);
 
-            if (tag.equals("-c")){
+            switch (tag){
+                case "-c":
+                    if (usersList.size() == 11){
+                        sendDP(sender, "-nfull");
+                    }
+                    break;
+                case "-r":
+                    String regmsg = msg.substring(2);
+                    String sendRegmsg = "-r" + regmsg;
+                    sendDP(8080, sendRegmsg);
+                    assignedmsg = receiveAssignDP();
+                    if(assignedmsg.charAt(0) == '-' && assignedmsg.charAt(1) == 'y'){
+                        String msgToSend = assignedmsg;
+                        usersList.add(regmsg.toLowerCase());
+                        sendDP(sender, msgToSend);
+                        regmsg = regmsg.substring(0, 1).toUpperCase() + regmsg.substring(1);
+                        Registry.append("\nCreated: "  + regmsg  + "!");
+                    }
+                    else if (assignedmsg.equals("-nr")){
+                        String res = "-n";
+                        Registry.append("\n" + "User not assigned due to a conflict!");
+                        sendDP(sender, res);
+                    }
+                    assignedmsg = null;
+                    break;
+                case "-l":
+                    boolean found = false;
+                    String loginmsg = msg.substring(2);
+                    String [] loginArray = loginmsg.split(",");
+                    String loginPort = loginArray[0];
+                    String loginName = loginArray[1];
+
+                    for (int i = 0; i < usersList.size(); i++){
+                        if (usersList.get(i).equals(loginName)){
+                            found = true;
+                            String loginToNameService = "-a" + loginName;
+                            sendDP(8080, loginToNameService);
+                            String portToLogin = receiveAssignDP();
+                            portToLogin = portToLogin.substring(2);
+                            if (portToLogin.equals(loginPort)){
+                                Registry.append("\nJust logged in: " +  loginName + "!");
+                                sendDP(sender, "-yl" + loginPort);
+                                break;
+                            }
+                            else{
+                                String errormsg = "-nlnomatch"  + "," + portToLogin;
+                                Registry.append("\nFailed to login: "  + loginName  + " sending PIN: " + portToLogin + "!");
+                                sendDP(sender, errormsg); //PORT DOES NOT MATCH
+                            }
+                        }
+                    }
+                    if (!found){
+                        Registry.append("\nFailed to login: " + "'"  + loginName + "'" + " doesn't exist!");
+                        sendDP(sender, "-nlnotfound"); //NAME NOT FOUND
+                    }
+                    break;
+            }
+
+            /*if (tag.equals("-c")){
                 if (usersList.size() == 11){
                     sendDP(sender, "-nfull");
                 }
@@ -109,7 +167,7 @@ public class RegistrySocket extends Thread {
                     Registry.append("\nFailed to login: " + "'"  + loginName + "'" + " doesn't exist!");
                     sendDP(sender, "-nlnotfound"); //NAME NOT FOUND
                 }
-            }
+            }*/
         } catch (IOException e) {
         }
     }
