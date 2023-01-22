@@ -149,7 +149,7 @@ public class Client extends Frame {
                         }
                     } // END OF WHILE
                     if (tmpPort != null) { // IF THE PORT IS NOT NULL
-                        formUser = user.substring(2); // CREATES A NEW STRING: THIS STRING IS USED TO STORE THE FORMATTED USERNAME
+                        formUser = user; // CREATES A NEW STRING: THIS STRING IS USED TO STORE THE FORMATTED USERNAME
                         formUser = formUser.substring(0, 1).toUpperCase() + formUser.substring(1); // CREATES A NEW STRING: THIS STRING IS USED TO STORE THE FORMATTED USERNAME
                         userlab.setText("Logged in as: " + formUser); // SETS THE TEXT OF THE USER LABEL TO THE FORMATTED USERNAME
                         sock.setConfirm(false); // SETS THE CONFIRMATION TO FALSE
