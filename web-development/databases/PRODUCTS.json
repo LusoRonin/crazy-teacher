@@ -1,0 +1,34 @@
+[
+    {
+        "ID": "python_6inch",
+        "NAME": "Python 6\"",
+        "CATEGORY": "Revolvers",
+        "DESCRIPTION": "<b>The Python is back.</b> Building on Colt’s Snake Gun legacy, the legendary double-action revolver is now available in stainless steel in 3\", 4.25” and 6” barrel lengths. The 2020 Python features modern stainless steel alloys and a re-designed rear sight. Thirty percent more steel beneath the rear adjustable target sight gives you a stronger revolver and more robust shooting experience. A recessed target crown, user-interchangeable front sight, and Walnut grip with the iconic Colt medallion make this a gun you’ll want to shoot AND show off. The Python is chambered in .357 Magnum and also accommodates .38 Special cartridges.",
+        "IMAGE_URL": "assets/product_images/python_6inch.svg",
+        "PRICE": 1499
+    },
+    {
+        "ID": "anaconda_8inch",
+        "NAME": "Anaconda 8\"",
+        "CATEGORY": "Revolvers",
+        "DESCRIPTION": "<b>Colt’s popular Snake Gun revolver series gains a new addition with the updated Anaconda.</b> The 2021 Anaconda has been fully re-designed to utilize an oversized Python action. Bulked-up with a solid stainless steel frame for strength and durability, this DA revolver is worthy of its pedigree. Experience the Linear Leaf Spring Action for a non-stacking, smooth-as-glass trigger pull. With recoil-absorbing Hogue grips and adjustable, interchangeable sights, this .44 Magnum is cool and comfortable from the range to the woods. A recessed target crown offers protection and the frame is drilled and tapped for optics mounts, making the Anaconda an unstoppable huntsman's sidearm. <b>Also available in 6” barrel length.</b>",
+        "IMAGE_URL": "assets/product_images/anaconda_8inch.svg",
+        "PRICE": 1499
+    },
+    {
+        "ID": "anaconda_6inch",
+        "NAME": "Anaconda 6\"",
+        "CATEGORY": "Revolvers",
+        "DESCRIPTION": "<b>Colt’s popular Snake Gun revolver series gains a new addition with the updated Anaconda.</b> The 2021 Anaconda has been fully re-designed to utilize an oversized Python action. Bulked-up with a solid stainless steel frame for strength and durability, this DA revolver is worthy of its pedigree. Experience the Linear Leaf Spring Action for a non-stacking, smooth-as-glass trigger pull. With recoil-absorbing Hogue grips and adjustable, interchangeable sights, this .44 Magnum is cool and comfortable from the range to the woods. A recessed target crown offers protection and the frame is drilled and tapped for optics mounts, making the Anaconda an unstoppable huntsman's sidearm. <b>Also available in 8” barrel length.</b>",
+        "IMAGE_URL": "assets/product_images/anaconda_6inch.svg",
+        "PRICE": 1299
+    },
+    {
+        "ID": "colt_4inch",
+        "NAME": "Colt 4\"",
+        "CATEGORY": "Revolvers",
+        "DESCRIPTION": "<b>The King is back!</b> Following the successful introduction of the Colt Cobra revolver in 2017, and marking Colt's re-entry into the category they once dominated, snake number two has arrived. Colt's King Cobra is reincarnated for 2019 as the 6-Shot .357 Magnum big brother of the Colt Cobra Double Action revolver. Sporting a heavy-duty frame, 3-inch barrel, and brushed stainless steel construction, the King Cobra secures a new place in the legendary heritage that makes Colt double-action revolvers some of the hottest collectible firearms today.",
+        "IMAGE_URL": "assets/product_images/colt_4inch.svg",
+        "PRICE": 999
+    }
+]
