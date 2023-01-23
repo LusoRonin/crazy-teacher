@@ -263,9 +263,7 @@ public class Client extends Frame {
                 int iter = 0; // CREATES A NEW INTEGER: THIS INTEGER IS USED TO STORE THE ITERATOR
                 String destArray[] = addr.getText().split(","); // CREATES A NEW STRING ARRAY: THIS STRING ARRAY IS USED TO STORE THE DESTINATION ARRAY
                 for (int j = 0; j < tmpPortDest.length(); j = j + 4) { // FOR LOOP: THIS LOOP IS USED TO ITERATE THROUGH THE TEMPORARY PORT DESTINATION
-                    System.out.print("HERE");
                     String strPortDest = tmpPortDest.substring(j, j + 4); // CREATES A NEW STRING: THIS STRING IS USED TO STORE THE STRING PORT DESTINATION
-                    System.out.print("\n" + strPortDest);
                     if (strPortDest.equals("1234")) { // IF THE STRING PORT DESTINATION IS EQUAL TO 1234
                         ecran.append("\n" + "-Didn't send to user '" + destArray[iter] + "' because it was not found!-"); // APPENDS THE TEXT TO THE TEXT AREA WITH THE MESSAGE
                     } else { // IF THE STRING PORT DESTINATION IS NOT EQUAL TO 1234

@@ -54,6 +54,7 @@ public class NameServerSocket extends Thread {
             String assignedmsg = null; // CREATE A NEW STRING: assignedmsg
             String tag = msg.substring(0, 2); // CREATE A NEW STRING: tag; SET THE STRING TO THE FIRST TWO CHARACTERS OF THE STRING: msg
             String askmsg = null; // CREATE A NEW STRING: askmsg
+            String assignedmsgStr = null; // CREATE A NEW STRING: assignedmsgStr
             switch (tag) { // SWITCH STATEMENT TO CHECK THE TAG
                 case "-m": // IF THE TAG IS -m THEN
                     askmsg = msg.substring(2).toLowerCase(); // SET THE STRING: askmsg TO THE STRING: msg; STARTING AT THE THIRD CHARACTER
@@ -66,6 +67,7 @@ public class NameServerSocket extends Thread {
                                 userExists = true; // SET THE BOOLEAN: userExists TO TRUE
                                 assignedPort = userList.get(i).get(0).toString(); // SET THE STRING: assignedPort TO THE ELEMENT IN THE ARRAY LIST
                                 assignedmsg += assignedPort; // APPEND THE STRING: assignedmsg WITH THE STRING: assignedPort
+                                assignedmsgStr += "," + assignedPort; // APPEND THE STRING: assignedmsgStr WITH THE STRING: assignedPort
                             } // END OF IF STATEMENT
                         } // END OF FOR LOOP
                         if (!userExists) { // IF THE BOOLEAN: userExists IS FALSE
@@ -73,6 +75,9 @@ public class NameServerSocket extends Thread {
                         } // END OF IF STATEMENT
                     } // END OF FOR LOOP
                     sendDP(sender, assignedmsg); // CALL THE sendDP() METHOD
+                    String senderStr = Integer.toString(sender); // CREATE A NEW STRING: senderStr; SET THE STRING TO THE INTEGER: sender
+                    assignedmsgStr = assignedmsgStr.substring(5); // SET THE STRING: assignedmsgStr TO THE STRING: assignedmsgStr; STARTING AT THE SIXTH CHARACTER
+                    Server.append("\nRequest: Port " + senderStr + " requested Port " + assignedmsgStr);
                     break; // BREAK OUT OF THE SWITCH STATEMENT
                 case "-a": // IF THE TAG IS -a THEN
                     askmsg = msg.substring(2).toLowerCase(); // SET THE STRING: askmsg TO THE STRING: msg; STARTING AT THE THIRD CHARACTER
@@ -81,6 +86,9 @@ public class NameServerSocket extends Thread {
                             assignedPort = userList.get(i).get(0).toString(); // SET THE STRING: assignedPort TO THE ELEMENT IN THE ARRAY LIST
                             assignedmsg = "-a" + assignedPort; // SET THE STRING: assignedmsg TO -a + THE STRING: assignedPort
                             sendDP(sender, assignedmsg); // CALL THE sendDP() METHOD
+                            senderStr = Integer.toString(sender); // CREATE A NEW STRING: senderStr; SET THE STRING TO THE INTEGER: sender
+                            assignedmsgStr = assignedmsg.substring(2); // SET THE STRING: assignedmsgStr TO THE STRING: assignedmsgStr; STARTING AT THE THIRD CHARACTER
+                            Server.append("\nRequest: Port " + senderStr + " requested Port " + assignedmsgStr);
                             break; // BREAK OUT OF THE FOR LOOP
                         } // END OF IF STATEMENT
                         if (i == userList.size() - 1) { // IF THE ELEMENT IN THE ARRAY LIST IS EQUAL TO THE LAST ELEMENT IN THE ARRAY LIST
