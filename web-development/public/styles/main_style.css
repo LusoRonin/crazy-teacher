@@ -14510,7 +14510,9 @@ fieldset {
     height: 24px;
     font-size: 24px;
     margin-top: 0.1em;
+    margin-right: 0.2em;
     margin-left: 0.2em;
+    margin-bottom: 0.1em;
     line-height: 1em;
     -webkit-mask: url('../assets/interface_icons/fi-rr-cross-circle.svg') no-repeat 50% 50%;
     mask: url('../assets/interface_icons/fi-rr-cross-circle.svg') no-repeat 50% 50%;
@@ -14698,7 +14700,7 @@ fieldset {
     transition: transform 0.2s 0.2s, opacity 0.1s 0.3s;
 }
 
-.shopping-cart{
+.shopping-cart {
     display: none;
     position: fixed;
     border: 1px solid;
@@ -14709,10 +14711,10 @@ fieldset {
     width: 50%;
     height: 50%;
     background-color: #ffffff;
-    
+
 }
 
-.cart-header{
+.cart-header {
     margin: auto;
     width: 90%;
     height: 15%;
@@ -14720,14 +14722,15 @@ fieldset {
     align-items: center;
 }
 
-.cart-title{
+.cart-title {
     float: left;
     margin-top: 5%;
     font-size: 20px;
     font-weight: 700;
     color: #2F3841;
 }
-.cart-action{
+
+.cart-action {
     float: right;
     margin-top: 5%;
     font-size: 14px;
@@ -14737,7 +14740,7 @@ fieldset {
     border-bottom: 1px solid #E44C4C;
 }
 
-.cart-items{
+.cart-items {
     margin: auto;
     width: 90%;
     height: 30%;
@@ -14745,37 +14748,40 @@ fieldset {
     justify-content: space-between;
     align-items: center;
 }
-.img-box{
+
+.img-box {
     width: 15%;
     text-align: center;
 }
-.about-item{
+
+.about-item {
     height: 100%;
 }
 
-.item-title{
+.item-title {
     padding-top: 5px;
     line-height: 10px;
     font-size: 32px;
     font-weight: 800;
     color: #202020;
 }
-.item-description{
+
+.item-description {
     line-height: 10px;
     font-size: 18px;
     font-weight: 600;
     color: #909090;
 }
 
-.item-counter{
+.item-counter {
     width: 15%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.plusBtn, 
-.minusBtn{
+.plusBtn,
+.minusBtn {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -14788,22 +14794,26 @@ fieldset {
     color: #202020;
     cursor: pointer;
 }
-.item-count{
+
+.item-count {
     font-size: 20px;
     font-weight: 900;
     color: #202020;
 }
-.item-price{
+
+.item-price {
     height: 100%;
     text-align: right;
 }
-.item-price-value{
+
+.item-price-value {
     padding-top: 20px;
     font-size: 26px;
     font-weight: 800;
     color: #202020;
 }
-.item-remove{
+
+.item-remove {
     padding-top: 5px;
     font-size: 14px;
     font-weight: 600;
@@ -14811,31 +14821,31 @@ fieldset {
     cursor: pointer;
 }
 
-.checkout-section{
+.checkout-section {
     float: right;
     margin-right: 5%;
     width: 28%;
-   }
+}
 
-.total-section{
+.total-section {
     width: 100%;
     justify-content: space-between;
-   }
+}
 
-.subtotal-title{
+.subtotal-title {
     float: right;
     font-size: 22px;
     font-weight: 700;
     color: #202020;
 }
 
-.total-amount{
+.total-amount {
     font-size: 36px;
     font-weight: 900;
     color: #202020;
 }
 
-.checkoutBtn{
+.checkoutBtn {
     margin-top: 5px;
     width: 50%;
     height: 40px;

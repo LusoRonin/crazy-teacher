@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const app = express();
 const https = require('https');
+const fetch = require('node-fetch');
 
 const PORT = 3002; // SETS PORT
 // STARTS SERVER

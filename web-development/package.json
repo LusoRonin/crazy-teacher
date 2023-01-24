@@ -24,7 +24,7 @@
     "https": "^1.0.0",
     "jsonwebtoken": "^9.0.0",
     "mysql": "^2.18.1",
-    "node-fetch": "^3.3.0"
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"
