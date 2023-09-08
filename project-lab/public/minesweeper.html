@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css"
+    href="styles/wsite_theme.css">
+  <link rel="stylesheet" type="text/css" href="styles/minesweeper_wsite_theme.css">
+  <link rel="icon" type="image/x-icon" href="assets/menu-icons/minesweeper.png">
+  <title>Minesweeper</title>
+  <style data-merge-styles="true"></style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <button type="button" class="settings js-settings" aria-haspopup="true" aria-expanded="false" aria-label="Settings"
+      style="display: none;"></button>
+    <div class="js-settings-popup settings-popup">
+      <div class="flex">
+        <label class="btn flex-cell" aria-label="Use Twitter Emoji"><input type="radio" name="emoji" id="twemoji"
+            checked>Twemoji</label>
+        <label class="btn flex-cell" aria-label="Use Native Emoji"><input type="radio" name="emoji" id="emoji"> Native
+          emoji</label>
+      </div>
+      <div class="flex" style="display: none;">
+        <input id="cols" class="input flex-cell" type="number" value="10" min="1" max="500" aria-label="Columns">
+        <div class="flex-cell divider">&times;</div>
+        <input id="rows" class="input flex-cell" type="number" value="10" min="1" max="500" aria-label="Rows"><br>
+      </div>
+      <div class="prepend-input" style="font-style: normal;">💣</div>
+      <input id="bombs" class="input" type="number" value="10" min="1" max="2500" aria-label="Number of bombs">
+      <select id="emojiset" class="input input-select" aria-label="Change emoji set" style="font-style: normal;">
+        <option value="✅ 💣 🚧 ◻️">✅ 💣 🚧</option>
+        <option value="🍰 👾 📌 ◻️">🍰 👾 📌</option>
+        <option value="🌷 ⚡️ 🐞 ◻️">🌷 ⚡️ 🐞</option>
+        <option value="⭕️ ❌ ❗️ ✖️️">⭕️ ❌ ❗️ ✖️</option>
+        <option value="☀ ⚡ ☔ ☁️">☀ ⚡ ☔ ☁️</option>
+      </select>
+      <button class="js-popup-new-game btn" type="button">Save and restart game</button>
+    </div>
+    <button type="button" class="action-btn js-new-game" aria-label="New game" style="display: none;">
+      <span class="default-emoji"></span>
+      <span id="result" class="result-emoji"></span>
+    </button>
+    <div id="map" role="grid" aria-label="Mine field">
+    </div>
+    <div class="bar flex">
+      <div class="stat flex-cell">
+        <div id="bombs-left">0</div><span class="small-text">BOMBS</span>
+      </div>
+      <div class="stat flex-cell">
+        <div id="moves"></div><span class="small-text">MOVES</span>
+      </div>
+      <div class="stat flex-cell">
+        <div id="timer"></div><span class="small-text">TIME</span>
+      </div>
+    </div>
+  </div>
+  <div aria-live="assertive" class="feedback" style="display: none;"></div>
+
+  <script>
+    if (navigator.serviceWorker) navigator.serviceWorker.register('scripts/minesweeper_service_worker.js')
+  </script>
+  <script src="scripts/twemoji.js"></script>
+  <script src="scripts/minesweeper.js"></script>
+  <script>
+    var emojiset = document.getElementById('emojiset').value.split(' ')
+    var cols = document.getElementById('cols')
+    var rows = document.getElementById('rows')
+    var bombs = document.getElementById('bombs')
+
+    // IF BODY CLASS LIST CONTAINS 'LIGHT' THEN SET TWEMOJI DO NOTHING, ELSE CHANGE THE LAST EMOJI OF THE EMOJISET TO 2B1B (DARK) INSTEAD OF 25FB (LIGHT)
+    if (document.body.classList.contains('light')) {
+      emojiset[3] = "◻️"
+    } else {
+      emojiset[3] = "◼️"
+    }
+
+    game = new Game(cols.value, rows.value, bombs.value, emojiset, document.getElementById('twemoji').checked)
+
+    document.querySelector('.js-new-game').addEventListener('click', restart)
+    document.querySelector('.js-popup-new-game').addEventListener('click', restart)
+
+    document.querySelector('.js-settings').addEventListener('click', function () {
+      var list = document.querySelector('.js-settings-popup').classList
+      list.contains('show') ? list.remove('show') : list.add('show')
+      this.setAttribute('aria-expanded', list.contains('show'))
+    })
+
+    function restart() {
+      clearInterval(game.timer)
+      emojiset = document.getElementById('emojiset').value.split(' ')
+      game = new Game(cols.value, rows.value, bombs.value, emojiset, document.getElementById('twemoji').checked)
+      document.querySelector('.js-settings-popup').classList.remove('show');
+      change_icon(document.body.classList.contains("light") ? "dark" : "light");
+      return false
+    }
+  </script>
+
+  <details id="how-to-play-modal">
+    <summary>
+      <div class="details-modal-overlay"></div>
+    </summary>
+    <div class="details-modal">
+      <!-- <div class="details-modal-close">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M13.7071 1.70711C14.0976 1.31658 14.0976 0.683417 13.7071 0.292893C13.3166 -0.0976311 12.6834 -0.0976311 12.2929 0.292893L7 5.58579L1.70711 0.292893C1.31658 -0.0976311 0.683417 -0.0976311 0.292893 0.292893C-0.0976311 0.683417 -0.0976311 1.31658 0.292893 1.70711L5.58579 7L0.292893 12.2929C-0.0976311 12.6834 -0.0976311 13.3166 0.292893 13.7071C0.683417 14.0976 1.31658 14.0976 1.70711 13.7071L7 8.41421L12.2929 13.7071C12.6834 14.0976 13.3166 14.0976 13.7071 13.7071C14.0976 13.3166 14.0976 12.6834 13.7071 12.2929L8.41421 7L13.7071 1.70711Z" fill="black" />
+      </svg>
+    </div> -->
+      <div class="details-modal-title">
+        <h1>How to Play?</h1>
+      </div>
+      <div class="details-modal-content">
+        <p>
+          To play Minesweeper, you must first click on a square to reveal what is underneath it. If a square contains a
+          number (1-3) that means that there are that many mines in the adjacent squares. Your objective is to reveal
+          all of the squares that do not contain mines. If you reveal a square that contains a mine, you lose the game.
+          The dashboard underneath the board shows you the number of mines present, the number of moves you have made
+          and the time you have spent on the current game. If you wish to restart the game, simply click on the smiley
+          face button. Good luck and have fun!
+        </p>
+      </div>
+    </div>
+  </details>
+  <details id="brief-overview-modal">
+    <summary>
+      <div class="details-modal-overlay"></div>
+    </summary>
+    <div class="details-modal">
+      <div class="details-modal-title">
+        <h1>A Brief View on Minesweeper</h1>
+      </div>
+      <div class="details-modal-content">
+        <p>
+          Minesweeper is a logic puzzle game that is generally played on personal computers. It consists of a grid of
+          clickable squares, with hidden “mines” placed randomly by an algorithm at the start of each game. The player’s
+          objective is to try to clear the grid by having every square shown except for the one that contain “mines”;
+          however, to accomplish this objective the game will show clues to the player indicating that a mine or mines
+          are very close. Minesweeper was developed was created by Microsoft in the 1990s and it was written by Robert
+          Donner and Curt Johnson, however Eurogamer, a British gaming magazine, commented that Minesweeper actually
+          gained a lot of inspiration from Mined-Out, a very similar game developed by Ian Andrew from the ZX Spectrum
+          machines in 1983. Currently, Minesweeper is bundled with operating systems and desktop environments, but it is
+          also has some variants present as mini-games integrated in other larger Videogames in the market.
+        </p>
+      </div>
+    </div>
+  </details>
+  <script src="scripts/help_trigger_event.js"></script>
+  <label class="day-night">
+    <input type="checkbox">
+    <div></div>
+  </label>
+  <!-- <script src="scripts/day_night_toggle_controls.js"></script> -->
+  <script>
+    document.querySelector(".day-night input").addEventListener("change", () => {
+      document.querySelector("body").classList.add("toggle");
+      setTimeout(() => {
+        document.querySelector("body").classList.toggle("light");
+        setTimeout(
+          () => document.querySelector("body").classList.remove("toggle"),
+          10
+        );
+      }, 5);
+      change_icon(document.body.classList.contains("light") ? "dark" : "light");
+    });
+
+    window.onload = () => {
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("body").classList.remove("light");
+      } else {
+        document.querySelector("body").classList.add("light");
+      }
+      change_icon(!document.body.classList.contains("light") ? "dark" : "light");
+    }
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+      const newColorScheme = event.matches ? "dark" : "light";
+      if (newColorScheme == "dark") {
+        document.querySelector("body").classList.remove("light");
+      } else {
+        document.querySelector("body").classList.add("light");
+      }
+      change_icon(!document.body.classList.contains("light") ? "dark" : "light");
+    });
+
+    function change_icon(newColorScheme) {
+      if (newColorScheme == "dark") {
+        // DARK
+        // FOREACH ROW IN ID 'MAP' AND EACH GRIDCELL IN ROW, CHANGE THE LAST EMOJI OF THE EMOJISET TO 25FB (LIGHT) INSTEAD OF 2B1B (DARK)
+        var map = document.getElementById('map')
+        var rows = map.children
+        for (var i = 0; i < rows.length; i++) {
+          var row = rows[i]
+          var gridcells = row.children
+          for (var j = 0; j < gridcells.length; j++) {
+            var gridcell = gridcells[j]
+            var emojis = gridcell.children
+            var emoji = emojis[emojis.length - 1]
+            if (emoji.innerHTML == `<img class="emoji" aria-hidden="true" src="http://twemoji.maxcdn.com/36x36/25fb.png">`) {
+              emoji.innerHTML = `<img class="emoji" aria-hidden="true" src="http://twemoji.maxcdn.com/36x36/25fc.png">`
+            }
+          }
+        }
+      } else {
+        // LIGHT
+        // FOREACH ROW IN ID 'MAP' AND EACH GRIDCELL IN ROW, CHANGE THE LAST EMOJI OF THE EMOJISET TO 2B1B (DARK) INSTEAD OF 25FB (LIGHT)
+        var map = document.getElementById('map')
+        var rows = map.children
+        for (var i = 0; i < rows.length; i++) {
+          var row = rows[i]
+          var gridcells = row.children
+          for (var j = 0; j < gridcells.length; j++) {
+            var gridcell = gridcells[j]
+            var emojis = gridcell.children
+            var emoji = emojis[emojis.length - 1]
+            if (emoji.innerHTML == `<img class="emoji" aria-hidden="true" src="http://twemoji.maxcdn.com/36x36/25fc.png">`) {
+              emoji.innerHTML = `<img class="emoji" aria-hidden="true" src="http://twemoji.maxcdn.com/36x36/25fb.png">`
+            }
+          }
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>

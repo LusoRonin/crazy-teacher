@@ -1,0 +1,35 @@
+{
+  "name": "crazy-teacher",
+  "version": "1.0.0",
+  "description": "A three board game platform.",
+  "main": "index.js",
+  "scripts": {
+    "build": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "pmfs1",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.17.1",
+    "fetch": "^1.1.0",
+    "fs": "0.0.1-security",
+    "https": "^1.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "mysql": "^2.18.1",
+    "node-fetch": "^2.6.1",
+    "http-server": "^0.9.0",
+    "jquery": "^3.5.1",
+    "bootstrap": "^4.5.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:pmfs1/crazy-teacher.git",
+    "branch": "project-lab"
+  }
+}

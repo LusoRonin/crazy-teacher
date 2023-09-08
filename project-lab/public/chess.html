@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css"
+    href="styles/wsite_theme.css">
+  <link rel="stylesheet" type="text/css" href="styles/chessboard_theme.css">
+  <link rel="stylesheet" type="text/css" href="styles/chess_wsite_theme.css">
+  <link rel="icon" type="image/x-icon" href="assets/menu-icons/chess.png">
+  <title>Chess</title>
+  <style data-merge-styles="true"></style>
+</head>
+
+<body>
+  <div id="board" class="board"></div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="scripts/chessboard_controller.js"></script>
+  <script src="scripts/chess_controller.js"></script>
+  <script src="scripts/chess.js"></script>
+  <details id="how-to-play-modal">
+    <summary>
+      <div class="details-modal-overlay"></div>
+    </summary>
+    <div class="details-modal">
+      <!-- <div class="details-modal-close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M13.7071 1.70711C14.0976 1.31658 14.0976 0.683417 13.7071 0.292893C13.3166 -0.0976311 12.6834 -0.0976311 12.2929 0.292893L7 5.58579L1.70711 0.292893C1.31658 -0.0976311 0.683417 -0.0976311 0.292893 0.292893C-0.0976311 0.683417 -0.0976311 1.31658 0.292893 1.70711L5.58579 7L0.292893 12.2929C-0.0976311 12.6834 -0.0976311 13.3166 0.292893 13.7071C0.683417 14.0976 1.31658 14.0976 1.70711 13.7071L7 8.41421L12.2929 13.7071C12.6834 14.0976 13.3166 14.0976 13.7071 13.7071C14.0976 13.3166 14.0976 12.6834 13.7071 12.2929L8.41421 7L13.7071 1.70711Z" fill="black" />
+        </svg>
+      </div> -->
+      <div class="details-modal-title">
+        <h1>How to Play?</h1>
+      </div>
+      <div class="details-modal-content">
+        <p>
+          Our version of chess is played against an AI and the player is in control of the White Army. In order to move a piece, simply click and drag the chosen piece to one of the highlighted squares (since these represent the possible moves of the piece). To win the game, you must checkmate the opposing army's King. Good luck and have fun!
+        </p>
+      </div>
+    </div>
+  </details>
+  <details id="brief-overview-modal">
+    <summary>
+      <div class="details-modal-overlay"></div>
+    </summary>
+    <div class="details-modal">
+      <div class="details-modal-title">
+        <h1>A Brief View on Chess</h1>
+      </div>
+      <div class="details-modal-content">
+        <p>
+          Chess is an abstract strategy board game for two players. Each player controls an army of white or black pieces and tries to checkmate the opposing player’s King. Although there have been several variations of this game through the ages, the current version’s rules were established back in 15th century Europe. However, organized chess only arose in the 19th century, with the first chess competitions starting to appear during this time. To distinguish it from other types of chess, such as Shogi (Japanese Chess) or Xiangqi (Chinese Chess), this game is sometimes referred to as Western Chess. The current Chess World Champion is Ding Liren, who won the title by defeating Ian Nepomniachtchi in the 2023 Chess World Championship, after previous Champion, Chess Grandmaster Magnus Carlsen, refused to defend his title.
+        </p>
+      </div>
+    </div>
+  </details>
+  <script src="scripts/help_trigger_event.js"></script>
+  <label class="day-night">
+    <input type="checkbox">
+    <div></div>
+  </label>
+  <script src="scripts/day_night_toggle_controls.js"></script>
+</body>
+
+</html>

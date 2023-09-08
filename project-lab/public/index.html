@@ -1,0 +1,96 @@
+<html lang="en">
+
+<head>
+    <title>The Board Game Collective</title>
+    <style data-merge-styles="true"></style>
+    <meta property="og:site_name" content="The Board Game Collective">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <link rel="stylesheet" type="text/css" href="styles/wsite_theme_root.css" title="wsite-theme_root-css"
+        charset="utf-8">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="assets/menu-icons/chess.png">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/classnames/2.3.1/index.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/browse/@types/react@16.4.14/index.d.ts"></script>
+    <script type="text/javascript" src="https://unpkg.com/browse/@types/react-dom@17.0.2/index.d.ts"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
+</head>
+
+<body class="wrapper">
+    <div class="overlay first"></div>
+    <div class="overlay second"></div>
+    <div class="overlay third"></div>
+    <div class="text">
+        <h1><span class="hide--text" style="transform: translate(0px, 0px);">The</span></h1>
+        <h2 style="transform: translate(0px, 0px); opacity: 1;">Board</h2>
+        <h3>
+            <span class="hide--text" style="transform: translate(0px, 0px);">Games Collective</span>
+        </h3>
+    </div>
+    <div class="distortion" style="transform: translate(0px, 0px); opacity: 1;"></div>
+    <div id="root"></div>
+    <script src="scripts/root.js"></script>
+    <label class="day-night">
+      <input type="checkbox">
+      <div></div>
+    </label>
+    <script src="scripts/day_night_toggle_controls.js"></script>
+    <script>
+        gsap.from(".text h1 .hide--text", {
+            duration: 1.5,
+            delay: 1,
+            y: "100%",
+            ease: "expo.inOut",
+        });
+
+        gsap.from(".text h3 .hide--text", {
+            duration: 1.5,
+            delay: 1.2,
+            y: "100%",
+            ease: "expo.inOut",
+        });
+
+        gsap.from(".text h2", {
+            duration: 1.5,
+            delay: 1.5,
+            opacity: 0,
+            x: "-10000",
+            ease: "expo.inOut",
+        });
+        gsap.from(".distortion", {
+            duration: 1.5,
+            delay: 2,
+            opacity: 0,
+            y: "20",
+            ease: "expo.inOut",
+        });
+        gsap.to(".first", {
+            duration: 1.5,
+            delay: 0.5,
+            top: "-100%",
+            ease: "expo.inOut",
+        });
+
+        gsap.to(".second", {
+            duration: 1.5,
+            delay: 0.6,
+            top: "-100%",
+            ease: "expo.inOut",
+        });
+
+        gsap.to(".third", {
+            duration: 1.5,
+            delay: 0.7,
+            top: "-100%",
+            ease: "expo.inOut",
+        });
+    </script>
+</body>
+
+</html>

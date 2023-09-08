@@ -1,0 +1,1624 @@
+/* -- */
+@keyframes blink {
+
+    from,
+    25%,
+    to {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(720deg);
+    }
+
+    to {
+        transform: rotate(1440deg);
+    }
+}
+
+@keyframes bounce {
+
+    from,
+    6.66%,
+    17.66%,
+    33.33% {
+        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        transform: translate3d(0, 0, 0);
+    }
+
+    13.33%,
+    14.33% {
+        animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+        transform: translate3d(0, -30px, 0) scaleY(1.1);
+    }
+
+    23.33% {
+        animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+        transform: translate3d(0, -15px, 0) scaleY(1.05);
+    }
+
+    26.66% {
+        transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        transform: translate3d(0, 0, 0) scaleY(0.95);
+    }
+
+    30% {
+        transform: translate3d(0, -4px, 0) scaleY(1.02);
+    }
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+html {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+* {
+    font-family: 'Poppins', sans-serif;
+    margin: 0 auto;
+}
+
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    background-color: var(--background-color);
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
+    list-style-type: none;
+    white-space: initial;
+    font-style: italic;
+}
+
+body:before {
+    content: "";
+    position: absolute;
+    inset: 0 -60% 65% -60%;
+    background-image: radial-gradient(ellipse at top, #6e6eff 0%, var(--background-color) 50%);
+    opacity: var(--blur-opacity);
+}
+
+body {
+    --background-color: #18181B;
+    --text-color: #A1A1AA;
+    --card-background-color: rgba(255, 255, 255, .015);
+    --card-border-color: rgba(255, 255, 255, 0.1);
+    --card-box-shadow-1: rgba(0, 0, 0, 0.05);
+    --card-box-shadow-1-y: 3px;
+    --card-box-shadow-1-blur: 6px;
+    --card-box-shadow-2: rgba(0, 0, 0, 0.1);
+    --card-box-shadow-2-y: 8px;
+    --card-box-shadow-2-blur: 15px;
+    --card-label-color: #FFFFFF;
+    --card-icon-color: #D4D4D8;
+    --card-icon-background-color: rgba(255, 255, 255, 0.08);
+    --card-icon-border-color: rgba(255, 255, 255, 0.12);
+    --card-shine-opacity: .1;
+    --card-shine-gradient: conic-gradient(from 205deg at 50% 50%, rgba(16, 185, 129, 0) 0deg, #6e6eff 25deg, rgba(52, 211, 153, 0.18) 295deg, rgba(16, 185, 129, 0) 360deg);
+    --card-line-color: #2A2B2C;
+    --card-tile-color: rgba(16, 185, 129, 0.05);
+    --card-hover-border-color: rgba(255, 255, 255, 0.2);
+    --card-hover-box-shadow-1: rgba(0, 0, 0, 0.04);
+    --card-hover-box-shadow-1-y: 5px;
+    --card-hover-box-shadow-1-blur: 10px;
+    --card-hover-box-shadow-2: rgba(0, 0, 0, 0.3);
+    --card-hover-box-shadow-2-y: 15px;
+    --card-hover-box-shadow-2-blur: 25px;
+    --card-hover-icon-color: #6e6eff;
+    --card-hover-icon-background-color: rgba(52, 211, 153, 0.1);
+    --card-hover-icon-border-color: rgba(52, 211, 153, 0.2);
+    --blur-opacity: .01;
+}
+
+body.light {
+    --background-color: #FAFAFA;
+    --text-color: #52525B;
+    --card-background-color: transparent;
+    --card-border-color: rgba(24, 24, 27, 0.08);
+    --card-box-shadow-1: rgba(24, 24, 27, 0.02);
+    --card-box-shadow-1-y: 3px;
+    --card-box-shadow-1-blur: 6px;
+    --card-box-shadow-2: rgba(24, 24, 27, 0.04);
+    --card-box-shadow-2-y: 2px;
+    --card-box-shadow-2-blur: 7px;
+    --card-label-color: #18181B;
+    --card-icon-color: #18181B;
+    --card-icon-background-color: rgba(24, 24, 27, 0.04);
+    --card-icon-border-color: rgba(24, 24, 27, 0.1);
+    --card-shine-opacity: .3;
+    --card-shine-gradient: conic-gradient(from 225deg at 50% 50%, rgba(16, 185, 129, 0) 0deg, #6e6eff 25deg, #EDFAF6 285deg, #FFFFFF 345deg, rgba(16, 185, 129, 0) 360deg);
+    --card-line-color: #E9E9E7;
+    --card-tile-color: rgba(16, 185, 129, 0.08);
+    --card-hover-border-color: rgba(24, 24, 27, 0.15);
+    --card-hover-box-shadow-1: rgba(24, 24, 27, 0.05);
+    --card-hover-box-shadow-1-y: 3px;
+    --card-hover-box-shadow-1-blur: 6px;
+    --card-hover-box-shadow-2: rgba(24, 24, 27, 0.1);
+    --card-hover-box-shadow-2-y: 8px;
+    --card-hover-box-shadow-2-blur: 15px;
+    --card-hover-icon-color: #18181B;
+    --card-hover-icon-background-color: rgba(24, 24, 27, 0.04);
+    --card-hover-icon-border-color: rgba(24, 24, 27, 0.34);
+    --blur-opacity: .1;
+}
+
+body {
+    margin: 0px;
+    overflow-x: hidden;
+    padding: 0px;
+    background-color: var(--background-color);
+}
+
+body::-webkit-scrollbar-track {
+    background-color: var(--background-color)
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 100px;
+}
+
+body::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+}
+
+body input,
+body h1,
+body h3,
+body a,
+body span {
+    /*font-family: "Rubik", sans-serif;*/
+    font-weight: 400;
+    margin: 0px;
+    padding: 0px;
+}
+
+.background-image {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.clear-button {
+    /* backdrop-filter: blur(3px);
+    background-color: rgba(255, 255, 255, 0.1); */
+    border: 0px solid var(--card-border-color);
+    border-radius: 100px;
+    /* box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1); */
+    cursor: pointer;
+    background-color: var(--background-color);
+    box-shadow: 0px var(--card-box-shadow-1-y) var(--card-box-shadow-1-blur) var(--card-box-shadow-1), 0px var(--card-box-shadow-2-y) var(--card-box-shadow-2-blur) var(--card-box-shadow-2), 0 0 0 1px var(--card-border-color);
+    transition: box-shadow 0.25s;
+}
+
+.clear-button:before {
+    background-color: var(--card-background-color);
+}
+
+.clear-button:hover {
+    /* background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3); */
+    box-shadow: 0px 3px 6px var(--card-hover-box-shadow-1), 0px var(--card-hover-box-shadow-2-y) var(--card-hover-box-shadow-2-blur) var(--card-hover-box-shadow-2), 0 0 0 1px var(--card-hover-border-color);
+}
+
+#app.logged-out #app-info {
+    margin-left: 40px;
+    opacity: 1;
+    transform: translateX(0%);
+}
+
+#app.logged-out #app-background {
+    cursor: pointer;
+}
+
+#app.logged-out #sign-in-button-wrapper {
+    opacity: 1;
+    pointer-events: all;
+    transform: translate(-50%, -40px);
+}
+
+#app.logged-in #sign-in-button-wrapper {
+    opacity: 1;
+    pointer-events: all;
+    transform: translate(-50%, -40px);
+}
+
+#app.logging-in #app-background #app-background-image,
+#app.verifying-log-in #app-background #app-background-image,
+#app.log-in-error #app-background #app-background-image {
+    filter: blur(8px);
+    transform: scale(1.2);
+}
+
+#app.logging-in #app-pin-wrapper,
+#app.log-in-error #app-pin-wrapper 
+#app.partially-logged-in #app-pin-wrapper {
+    opacity: 1;
+    pointer-events: all;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#app.logging-in #app-username-wrapper,
+#app.log-in-error #app-username-wrapper {
+    opacity: 1;
+    pointer-events: all;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#app.partially-logged-in #app-username-wrapper {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -30%) scale(0.8);
+}
+
+#app.verifying-log-in #app-loading-icon {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+}
+
+#app.log-in-error #app-pin-wrapper #app-pin .app-pin-digit {
+    background-color: rgba(239, 83, 80, 0.05);
+    border-color: rgba(239, 83, 80, 0.5);
+}
+
+#app.log-in-error #app-username-wrapper #app-pin .app-username-digit {
+    background-color: rgba(239, 83, 80, 0.05);
+    border-color: rgba(239, 83, 80, 0.5);
+}
+
+#app.logged-in #app-menu {
+    height: auto;
+    overflow: initial;
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0%);
+}
+
+#app .scrollable-component {
+    cursor: grab;
+    overflow: auto;
+    user-select: none;
+    width: 100%;
+}
+
+#app .scrollable-component:active {
+    cursor: grabbing;
+}
+
+#app .scrollable-component::-webkit-scrollbar {
+    height: 0px;
+    width: 0px;
+}
+
+#app #app-loading-icon {
+    left: 50%;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, 0%);
+    transition: opacity 250ms, transform 250ms;
+    z-index: 2;
+}
+
+ion-icon {
+    font-size: 30px;
+    /* text-align: center; */
+    margin: auto;
+    color: #6e6eff;
+}
+
+#app #app-loading-icon i {
+    animation: 2s spin ease-in-out infinite;
+    color: var(--card-label-color);
+    font-size: 2em;
+}
+
+#app #app-background {
+    height: 100%;
+    left: 0px;
+    overflow: hidden;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 1;
+}
+
+#app #app-background #app-background-image {
+    background-image: url("https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2076&q=80");
+    height: 100%;
+    transition: filter 250ms, transform 250ms;
+    width: 100%;
+}
+
+#app #app-info {
+    bottom: 0px;
+    left: 0px;
+    margin: 40px;
+    margin-left: 0px;
+    opacity: 0;
+    position: absolute;
+    transform: translateX(-100%);
+    transition: margin 250ms, opacity 250ms, transform 250ms;
+    z-index: 2;
+}
+
+#app .user-status-button {
+    cursor: pointer;
+    /* margin-top: 10px; */
+    /* outline: none; */
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+}
+
+#app .user-status-button i {
+    color: var(--card-label-color);
+    font-size: 1.25em;
+}
+
+#app #sign-in-button-wrapper {
+    bottom: 0px;
+    left: 50%;
+    /* opacity: 0; */
+    opacity: 1;
+    pointer-events: none;
+    position: absolute;
+    transform: translate(-50%, 40px);
+    transition: opacity 250ms, transform 250ms;
+    z-index: 2;
+}
+
+#app #sign-in-button-wrapper #sign-in-button:not(:hover) {
+    animation: bounce 3s infinite;
+    animation-delay: 3s;
+}
+
+#app .info {
+    align-items: flex-end;
+    display: flex;
+}
+
+#app .info .time {
+    color: var(--card-label-color);
+    font-size: 6em;
+    height: 80px;
+    line-height: 80px;
+    box-shadow: 2px 2px 2px var(--card-box-shadow-1);
+}
+
+#app #quick-nav {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    overflow: auto;
+    padding-bottom: 5px;
+    width: 100%;
+    z-index: 3;
+}
+
+#app #quick-nav .quick-nav-item {
+    padding: 10px 20px;
+}
+
+#app #quick-nav .quick-nav-item:last-of-type {
+    margin-right: 10px;
+}
+
+#app #quick-nav .quick-nav-item .quick-nav-item-label {
+    color: var(--card-label-color);
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
+}
+
+#app .menu-section {
+    margin-top: 60px;
+}
+
+#app .menu-section .menu-section-title {
+    align-items: center;
+    display: flex;
+    gap: 6px;
+}
+
+#app .menu-section .menu-section-title i,
+#app .menu-section .menu-section-title span {
+    color: var(--card-label-color);
+}
+
+#app .menu-section .menu-section-title i {
+    font-size: 1em;
+}
+
+#app .menu-section .menu-section-title .menu-section-title-text {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.25em;
+}
+
+#app .menu-section {
+    margin-top: 15px;
+    padding-top: 5px;
+}
+
+#app #games-section {
+    display: flex;
+    gap: 1em;
+}
+
+#app #games-section .game-card {
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    height: 14vw;
+    max-height: 240px;
+    position: relative;
+    transition: transform 250ms;
+    width: 25%;
+}
+
+#app #games-section .game-card:hover {
+    transform: translateY(-5px);
+}
+
+#app #games-section .game-card:hover .game-card-content .game-card-content-items {
+    margin-bottom: 30px;
+}
+
+#app #games-section .game-card .game-card-content {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+}
+
+#app #games-section .game-card .game-card-content .game-card-content-items {
+    bottom: 0px;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    position: absolute;
+    right: 0px;
+    text-align: right;
+    transition: margin 250ms;
+}
+
+#app #games-section .game-card .game-card-content .game-card-content-items .game-card-title {
+    color: var(--card-label-color);
+    font-size: 1.5em;
+}
+
+#app #games-section .game-card .game-card-content .game-card-content-items .game-card-desc {
+    color: var(--text-color);
+    font-size: 0.9em;
+}
+
+#app #tools-section {
+    display: flex;
+    gap: 1em;
+}
+
+#app #tools-section .tool-card {
+    background-color: var(--background-color);
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    height: 8vw;
+    max-height: 160px;
+    min-height: 140px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 250ms;
+    width: calc(100% / 6);
+}
+
+#app #tools-section .tool-card:hover {
+    transform: translateY(-5px);
+}
+
+#app #tools-section .tool-card:hover .tool-card-background {
+    filter: grayscale(25%);
+}
+
+#app #tools-section .tool-card .tool-card-background {
+    border-radius: 10px;
+    filter: grayscale(100%);
+    height: 100%;
+    left: 0px;
+    opacity: 0.5;
+    position: absolute;
+    top: 0px;
+    transition: filter 250ms;
+    width: 100%;
+}
+
+#app #tools-section .tool-card .tool-card-content {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1));
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 40px);
+    justify-content: space-between;
+    padding: 20px;
+    position: relative;
+    width: calc(100% - 40px);
+    z-index: 2;
+}
+
+#app #tools-section .tool-card .tool-card-content .tool-card-content-header {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+#app #tools-section .tool-card .tool-card-content .tool-card-content-header .tool-card-label {
+    color: var(--card-hover-icon-color);
+    font-size: 0.8em;
+    text-transform: uppercase;
+}
+
+#app #tools-section .tool-card .tool-card-content .tool-card-content-header .tool-card-name {
+    color: var(--card-label-color);
+    font-size: 1.25em;
+}
+
+#app #tools-section .tool-card .tool-card-content .tool-card-icon {
+    color: var(--card-label-color);
+    font-size: 2em;
+}
+
+#app #teams-section {
+    /* display: flex; */
+    /* gap: 1em; */
+    grid-gap: 4em;
+    margin-top: 110%;
+    padding-bottom: 5em;
+}
+
+#app #teams-section #team-card-1 .team-card-content {
+    background: linear-gradient(to top, rgba(57, 73, 171, 0.4), transparent, rgba(0, 0, 0, 0.4));
+}
+
+#app #teams-section #team-card-2 .team-card-content {
+    background: linear-gradient(to top, rgba(103, 58, 183, 0.4), transparent, rgba(0, 0, 0, 0.4));
+}
+
+#app #teams-section #team-card-3 .team-card-content {
+    background: linear-gradient(to top, rgba(239, 83, 80, 0.4), transparent, rgba(0, 0, 0, 0.4));
+}
+
+#app #teams-section #team-card-4 .team-card-content {
+    background: linear-gradient(to top, rgba(42, 252, 152, 0.4), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4));
+}
+
+#app #teams-section .team-card {
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    height: 40vw;
+    max-height: 600px;
+    min-height: 460px;
+    min-width: 260px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 250ms;
+    width: calc(100% / 4);
+}
+
+#app #teams-section .team-card:hover {
+    transform: translateY(-5px);
+}
+
+#app #teams-section .team-card:hover .team-card-background {
+    transform: scale(1.05);
+}
+
+#app #teams-section .team-card:hover .team-card-content i {
+    transform: translate(-20%, -20%) scale(1.2);
+}
+
+#app #teams-section .team-card .team-card-background {
+    border-radius: 10px;
+    height: 100%;
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    transition: transform 250ms;
+    width: 100%;
+    z-index: 1;
+}
+
+#app #teams-section .team-card .team-card-content {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4));
+    border-radius: 10px;
+    height: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+#app #teams-section .team-card .team-card-content .team-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 30px;
+}
+
+#app #teams-section .team-card .team-card-content .team-card-info span {
+    box-shadow: 2px 2px 2px var(--card-box-shadow-1);
+}
+
+#app #teams-section .team-card .team-card-content .team-card-info .team-card-title {
+    color: var(--card-label-color);
+    font-size: 2em;
+}
+
+#app #teams-section .team-card .team-card-content .team-card-info .team-card-desc {
+    color: var(--text-color);
+    font-size: 0.9em;
+}
+
+#app #teams-section .team-card .team-card-content i {
+    bottom: 0px;
+    color: var(--card-label-color);
+    font-size: 5em;
+    padding: 30px;
+    position: absolute;
+    right: 0px;
+    box-shadow: 2px 2px 2px var(--card-box-shadow-1);
+    transition: transform 250ms;
+}
+
+#app #app-pin-wrapper {
+    left: 50%;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -30%) scale(0.8);
+    transition: opacity 250ms, transform 250ms;
+    z-index: 2;
+}
+
+#app.partially-logged-in #app-pin-wrapper {
+    opacity: 1;
+    pointer-events: all;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#app #app-pin-wrapper #app-pin-label {
+    color: var(--card-label-color);
+    font-size: 0.9em;
+    margin: 10px;
+    /* box-shadow: 2px 2px 2px var(--card-box-shadow-1); */
+}
+
+#app #app-pin-wrapper #app-pin-label #app-pin-cancel-text {
+    cursor: pointer;
+    margin-left: 2px;
+    transition: color 250ms;
+    color: #6e6eff;
+}
+
+#app #app-pin-wrapper #app-pin-label #app-pin-cancel-text:hover {
+    text-decoration: underline;
+}
+
+#app #app-pin-wrapper #app-pin-label #app-pin-error-text {
+    color: #ef5350;
+}
+
+#app #app-pin-wrapper #app-pin-hidden-input {
+    background-color: transparent;
+    border: none;
+    height: 0px;
+    outline: none;
+    pointer-events: none;
+    position: absolute;
+    width: 0px;
+}
+
+#app #app-pin-wrapper #app-pin {
+    display: flex;
+    gap: 10px;
+}
+
+#app #app-pin-wrapper #app-pin .app-pin-digit {
+    align-items: center;
+    /* background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2); */
+    border-radius: 10px;
+    /* box-shadow: 2px 2px 2px var(--card-box-shadow-1); */
+    background-color: var(--background-color);
+    box-shadow: 0px var(--card-box-shadow-1-y) var(--card-box-shadow-1-blur) var(--card-box-shadow-1), 0px var(--card-box-shadow-2-y) var(--card-box-shadow-2-blur) var(--card-box-shadow-2), 0 0 0 1px var(--card-border-color);
+    display: inline-flex;
+    font-size: 3em;
+    height: 80px;
+    justify-content: center;
+    position: relative;
+    transition: background-color 250ms, border-color 250ms;
+    width: 60px;
+}
+
+#app #app-pin-wrapper #app-pin .app-pin-digit:after,
+#app #app-pin-wrapper #app-pin .app-pin-digit:before {
+    box-shadow: 2px 2px 2px var(--card-box-shadow-1);
+    content: "";
+    position: absolute;
+    transition: opacity 250ms, transform 250ms;
+    z-index: 2;
+}
+
+#app #app-pin-wrapper #app-pin .app-pin-digit:before {
+    background-color: var(--card-label-color);
+    border-radius: 10px;
+    bottom: 0px;
+    height: 3px;
+    left: 15%;
+    opacity: 0;
+    transform: translateY(0px);
+    width: 70%;
+}
+
+#app #app-pin-wrapper #app-pin .app-pin-digit:after {
+    background-color: var(--card-label-color);
+    border-radius: 20px;
+    height: 20px;
+    opacity: 0;
+    transform: scale(0.25);
+    width: 20px;
+}
+
+#app #app-pin-wrapper #app-pin .app-pin-digit.focused:before {
+    animation: blink 2s ease-in-out infinite;
+    opacity: 1;
+    transform: translateY(-10px);
+}
+
+#app #app-pin-wrapper #app-pin .app-pin-digit.hidden:after {
+    opacity: 1;
+    transform: scale(1);
+}
+
+#app #app-pin-wrapper #app-pin .app-pin-digit.hidden .app-pin-digit-value {
+    opacity: 0;
+    transform: scale(0.25);
+}
+
+#app #app-pin-wrapper #app-pin .app-pin-digit .app-pin-digit-value {
+    color: var(--card-label-color);
+    transition: opacity 250ms, transform 250ms;
+}
+
+#app #app-username-wrapper {
+    left: 50%;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -30%) scale(0.8);
+    transition: opacity 250ms, transform 250ms;
+    z-index: 2;
+}
+
+#app #app-username-wrapper #app-username-label {
+    color: var(--card-label-color);
+    font-size: 0.9em;
+    margin: 10px;
+    /* box-shadow: 2px 2px 2px var(--card-box-shadow-1); */
+}
+
+#app #app-username-wrapper #app-username-label #app-username-cancel-text {
+    cursor: pointer;
+    margin-left: 2px;
+    transition: color 250ms;
+    color: #6e6eff;
+    /* color: #ef5350; */
+}
+
+#app #app-our-team-text {
+    cursor: pointer;
+    /* margin-left: -1px; */
+    transition: color 250ms;
+    color: #6e6eff;
+    z-index: 2;
+    position: inherit;
+    font-size: 14px;
+    /* margin-top: 1px; */
+}
+
+#app #app-username-wrapper #app-username-label #app-username-sign-up-text {
+    cursor: pointer;
+    /* margin-left: 2px; */
+    transition: color 250ms;
+    color: #6e6eff;
+    pointer-events: all;
+    opacity: 1;
+}
+
+#app.sign-up #app-username-wrapper #app-username-label #app-username-sign-up-text {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#app #app-username-wrapper #app-username-label #app-username-cancel-text:hover {
+    text-decoration: underline;
+}
+
+#app #app-our-team-text:hover {
+    text-decoration: underline;
+}
+
+#app #app-username-wrapper #app-username-label #app-username-sign-up-text:hover {
+    text-decoration: underline;
+}
+
+#app #app-username-wrapper #app-username-label #app-username-error-text {
+    color: #ef5350;
+}
+
+#app #app-username-wrapper #app-username-hidden-input {
+    background-color: transparent;
+    border: none;
+    height: 0px;
+    outline: none;
+    pointer-events: none;
+    position: absolute;
+    width: 0px;
+}
+
+#app #app-username-wrapper #app-username {
+    display: flex;
+    gap: 10px;
+}
+
+#app #app-username-wrapper #app-username .app-username-digit {
+    align-items: center;
+    /* background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2); */
+    border-radius: 10px;
+    /* box-shadow: 2px 2px 2px var(--card-box-shadow-1); */
+    background-color: var(--background-color);
+    box-shadow: 0px var(--card-box-shadow-1-y) var(--card-box-shadow-1-blur) var(--card-box-shadow-1), 0px var(--card-box-shadow-2-y) var(--card-box-shadow-2-blur) var(--card-box-shadow-2), 0 0 0 1px var(--card-border-color);
+    display: inline-flex;
+    font-size: 3em;
+    height: 80px;
+    justify-content: center;
+    position: relative;
+    transition: background-color 250ms, border-color 250ms;
+    width: 60px;
+}
+
+#app #app-username-wrapper #app-username .app-username-digit:after,
+#app #app-username-wrapper #app-username .app-username-digit:before {
+    box-shadow: 2px 2px 2px var(--card-box-shadow-1);
+    content: "";
+    position: absolute;
+    transition: opacity 250ms, transform 250ms;
+    z-index: 2;
+}
+
+#app #app-username-wrapper #app-username .app-username-digit:before {
+    background-color: var(--card-label-color);
+    border-radius: 10px;
+    bottom: 0px;
+    height: 3px;
+    left: 15%;
+    opacity: 0;
+    transform: translateY(0px);
+    width: 70%;
+}
+
+#app #app-username-wrapper #app-username .app-username-digit:after {
+    background-color: var(--card-label-color);
+    border-radius: 20px;
+    height: 20px;
+    opacity: 0;
+    transform: scale(0.25);
+    width: 20px;
+}
+
+#app #app-username-wrapper #app-username .app-username-digit.focused:before {
+    animation: blink 2s ease-in-out infinite;
+    opacity: 1;
+    transform: translateY(-10px);
+}
+
+#app #app-username-wrapper #app-username .app-username-digit.hidden:after {
+    opacity: 1;
+    transform: scale(1);
+}
+
+#app #app-username-wrapper #app-username .app-username-digit.hidden .app-username-digit-value {
+    opacity: 0;
+    transform: scale(0.25);
+}
+
+#app #app-username-wrapper #app-username .app-username-digit .app-username-digit-value {
+    color: var(--card-label-color);
+    transition: opacity 250ms, transform 250ms;
+}
+
+#app #app-menu {
+    height: 100vh;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    position: relative;
+    transform: translateY(-10%);
+    transition: opacity 250ms, transform 250ms;
+    z-index: 2;
+}
+
+#app #app-menu #app-menu-content-wrapper {
+    /* background: linear-gradient(to bottom, transparent, #1e1e1e); */
+    margin-top: 30vh;
+    min-height: 80vh;
+    padding: 80px;
+    padding-top: 0px;
+}
+
+#app #app-menu #app-menu-content-wrapper #app-menu-content {
+    margin: auto;
+    max-width: 1600px;
+    position: relative;
+}
+
+#app #app-menu #app-menu-content-wrapper #app-menu-content #app-menu-content-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media (max-width: 1300px) {
+    #app.logged-out #sign-in-button-wrapper {
+        transform: translate(-40px, 0px);
+    }
+
+    #app.logged-in #sign-in-button-wrapper {
+        transform: translate(-40px, 0px);
+    }
+
+    #app #sign-in-button-wrapper {
+        bottom: 40px;
+        left: auto;
+        right: 0px;
+        transform: translate(40px, 0px);
+    }
+
+    #app #app-menu #app-menu-content-wrapper {
+        padding: 30px;
+    }
+
+    #app #app-menu #app-menu-content-wrapper #app-menu-content #games-section {
+        flex-wrap: wrap;
+    }
+
+    #app #app-menu #app-menu-content-wrapper #app-menu-content #games-section .game-card {
+        height: 30vw;
+        max-height: 300px;
+        position: relative;
+        width: calc(50% - 0.5em);
+    }
+
+    #app #app-menu #app-menu-content-wrapper #app-menu-content #tools-section {
+        flex-wrap: wrap;
+    }
+
+    #app #app-menu #app-menu-content-wrapper #app-menu-content #tools-section .tool-card {
+        width: calc(33.33% - 0.69em);
+    }
+}
+
+@media (max-width: 600px) {
+    #app .info .time {
+        font-size: 4em;
+        height: 60px;
+        line-height: 60px;
+    }
+
+    #app .user-status-button {
+        width: 60px;
+    }
+
+    #app #app-menu #app-menu-content-wrapper #app-menu-content #games-section {
+        flex-direction: column;
+    }
+
+    #app #app-menu #app-menu-content-wrapper #app-menu-content #games-section .game-card {
+        height: 40vw;
+        position: relative;
+        width: 100%;
+    }
+
+    #app #app-menu #app-menu-content-wrapper #app-menu-content #tools-section {
+        flex-wrap: wrap;
+    }
+
+    #app #app-menu #app-menu-content-wrapper #app-menu-content #tools-section .tool-card {
+        width: calc(50% - 0.5em);
+    }
+}
+
+@media (max-width: 400px) {
+    #app #app-menu #app-menu-content-wrapper #app-menu-content #tools-section {
+        flex-wrap: wrap;
+    }
+
+    #app #app-menu #app-menu-content-wrapper #app-menu-content #tools-section .tool-card {
+        width: 100%;
+    }
+}
+
+
+.day-night {
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    opacity: 0.3;
+}
+
+.day-night input {
+    display: none;
+}
+
+.day-night input+div {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    box-shadow: inset 8px -8px 0 0 var(--card-label-color);
+    transform: scale(1) rotate(-2deg);
+    transition: box-shadow 0.5s ease 0s, transform 0.4s ease 0.1s;
+}
+
+.day-night input+div:before {
+    content: "";
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: background-color 0.3s ease;
+}
+
+.day-night input+div:after {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin: -3px 0 0 -3px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    box-shadow: 0 -23px 0 var(--text-color), 0 23px 0 var(--text-color), 23px 0 0 var(--text-color), -23px 0 0 var(--text-color), 15px 15px 0 var(--text-color), -15px 15px 0 var(--text-color), 15px -15px 0 var(--text-color), -15px -15px 0 var(--card-label-color);
+    transform: scale(0);
+    transition: all 0.3s ease;
+}
+
+.day-night input:checked+div {
+    box-shadow: inset 20px -20px 0 0 var(--card-label-color);
+    transform: scale(0.5) rotate(0deg);
+    transition: transform 0.3s ease 0.1s, box-shadow 0.2s ease 0s;
+}
+
+.day-night input:checked+div:before {
+    background: var(--card-label-color);
+    transition: background-color 0.3s ease 0.1s;
+}
+
+.day-night input:checked+div:after {
+    transform: scale(1);
+    transition: transform 0.5s ease 0.15s;
+}
+
+.text {
+    position: absolute;
+    top: 2rem;
+    left: 0rem;
+    transform: rotate(-90deg);
+}
+
+.text h1 {
+    font-size: 120px;
+    text-transform: uppercase;
+    font-weight: 900;
+    letter-spacing: -10px;
+    position: relative;
+    overflow: hidden;
+    height: 150px;
+    width: 600px;
+    color: var(--card-label-color);
+}
+
+.text h1 .hide--text {
+    position: absolute;
+}
+
+.text h2 {
+    content: "duality";
+    position: absolute;
+    top: 40px;
+    left: -80px;
+    color: #6e6eff;
+    z-index: -1;
+    font-size: 150px;
+    opacity: 1;
+}
+
+.text h3 {
+    font-size: 40px;
+    text-transform: uppercase;
+    font-weight: 600;
+    line-height: 1;
+    position: relative;
+    overflow: hidden;
+    height: 80px;
+    color: var(--card-label-color);
+}
+
+.text h3 .hide--text {
+    position: absolute;
+}
+
+.text p {
+    width: 400px;
+    font-size: 12px;
+    margin-top: 30px;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+    height: 100px;
+    color: var(--card-label-color);
+}
+
+.text p .hide--text {
+    position: absolute;
+}
+
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.overlay.first {
+    background: #6e6eff;
+}
+
+.overlay.second {
+    background: #6e6eff;
+    left: 33.33%;
+}
+
+.overlay.third {
+    background: #6e6eff;
+    left: 66.66%;
+}
+
+.media ul {
+    position: absolute;
+    bottom: 250px;
+    left: -140px;
+    transform: rotate(-90deg);
+}
+
+.media ul li {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    display: inline-block;
+    padding: 0 30px;
+    text-transform: uppercase;
+    color: var(--card-label-color);
+}
+
+body.toggle .grid * {
+    transition-duration: 0s !important;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 240px);
+    /* grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); */
+    grid-gap: 32px;
+    position: relative;
+    z-index: 1;
+    /* padding-top: 15%; */
+}
+
+.card {
+    background-color: var(--background-color);
+    box-shadow: 0px var(--card-box-shadow-1-y) var(--card-box-shadow-1-blur) var(--card-box-shadow-1), 0px var(--card-box-shadow-2-y) var(--card-box-shadow-2-blur) var(--card-box-shadow-2), 0 0 0 1px var(--card-border-color);
+    padding: 56px 16px 16px 16px;
+    border-radius: 15px;
+    cursor: pointer;
+    position: relative;
+    transition: box-shadow 0.25s;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 15px;
+    background-color: var(--card-background-color);
+}
+
+.card .icon {
+    z-index: 2;
+    position: relative;
+    display: table;
+    padding: 8px;
+}
+
+.card .icon::after {
+    content: "";
+    position: absolute;
+    inset: 4.5px;
+    border-radius: 50%;
+    background-color: var(--card-icon-background-color);
+    border: 1px solid var(--card-icon-border-color);
+    /* -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px); */
+    transition: background-color 0.25s, border-color 0.25s;
+    display: none;
+}
+
+.card .icon svg {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 24px;
+    height: 24px;
+    transform: translateZ(0);
+    color: var(--card-icon-color);
+    transition: color 0.25s;
+}
+
+.card .icon img {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 24px;
+    height: 24px;
+    transform: translateZ(0);
+    color: var(--card-icon-color);
+    transition: color 0.25s;
+}
+
+.card h4 {
+    z-index: 2;
+    position: relative;
+    margin: 12px 0 4px 0;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 2;
+    color: var(--card-label-color);
+}
+
+.card p {
+    z-index: 2;
+    position: relative;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-color);
+    margin-bottom: 2px;
+}
+
+.card .shine {
+    border-radius: 15px;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.card .shine:before {
+    content: "";
+    width: 150%;
+    padding-bottom: 150%;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    bottom: 55%;
+    filter: blur(35px);
+    opacity: var(--card-shine-opacity);
+    transform: translateX(-50%);
+    background-image: var(--card-shine-gradient);
+}
+
+.card .background {
+    border-radius: inherit;
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    -webkit-mask-image: radial-gradient(circle at 60% 5%, black 0%, black 15%, transparent 60%);
+    mask-image: radial-gradient(circle at 60% 5%, black 0%, black 15%, transparent 60%);
+}
+
+.card .background .tiles {
+    opacity: 0;
+    transition: opacity 0.25s;
+}
+
+.card .background .tiles .tile {
+    position: absolute;
+    background-color: var(--card-tile-color);
+    -webkit-animation-duration: 8s;
+    animation-duration: 8s;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    opacity: 0;
+}
+
+.card .background .tiles .tile.tile-4,
+.card .background .tiles .tile.tile-6,
+.card .background .tiles .tile.tile-10 {
+    -webkit-animation-delay: -2s;
+    animation-delay: -2s;
+}
+
+.card .background .tiles .tile.tile-3,
+.card .background .tiles .tile.tile-5,
+.card .background .tiles .tile.tile-8 {
+    -webkit-animation-delay: -4s;
+    animation-delay: -4s;
+}
+
+.card .background .tiles .tile.tile-2,
+.card .background .tiles .tile.tile-9 {
+    -webkit-animation-delay: -6s;
+    animation-delay: -6s;
+}
+
+.card .background .tiles .tile.tile-1 {
+    top: 0;
+    left: 0;
+    height: 10%;
+    width: 22.5%;
+}
+
+.card .background .tiles .tile.tile-2 {
+    top: 0;
+    left: 22.5%;
+    height: 10%;
+    width: 27.5%;
+}
+
+.card .background .tiles .tile.tile-3 {
+    top: 0;
+    left: 50%;
+    height: 10%;
+    width: 27.5%;
+}
+
+.card .background .tiles .tile.tile-4 {
+    top: 0;
+    left: 77.5%;
+    height: 10%;
+    width: 22.5%;
+}
+
+.card .background .tiles .tile.tile-5 {
+    top: 10%;
+    left: 0;
+    height: 22.5%;
+    width: 22.5%;
+}
+
+.card .background .tiles .tile.tile-6 {
+    top: 10%;
+    left: 22.5%;
+    height: 22.5%;
+    width: 27.5%;
+}
+
+.card .background .tiles .tile.tile-7 {
+    top: 10%;
+    left: 50%;
+    height: 22.5%;
+    width: 27.5%;
+}
+
+.card .background .tiles .tile.tile-8 {
+    top: 10%;
+    left: 77.5%;
+    height: 22.5%;
+    width: 22.5%;
+}
+
+.card .background .tiles .tile.tile-9 {
+    top: 32.5%;
+    left: 50%;
+    height: 22.5%;
+    width: 27.5%;
+}
+
+.card .background .tiles .tile.tile-10 {
+    top: 32.5%;
+    left: 77.5%;
+    height: 22.5%;
+    width: 22.5%;
+}
+
+@-webkit-keyframes tile {
+
+    0%,
+    12.5%,
+    100% {
+        opacity: 1;
+    }
+
+    25%,
+    82.5% {
+        opacity: 0;
+    }
+}
+
+@keyframes tile {
+
+    0%,
+    12.5%,
+    100% {
+        opacity: 1;
+    }
+
+    25%,
+    82.5% {
+        opacity: 0;
+    }
+}
+
+.card .background .line {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.35s;
+}
+
+.card .background .line:before,
+.card .background .line:after {
+    content: "";
+    position: absolute;
+    background-color: var(--card-line-color);
+    transition: transform 0.35s;
+}
+
+.card .background .line:before {
+    left: 0;
+    right: 0;
+    height: 1px;
+    transform-origin: 0 50%;
+    transform: scaleX(0);
+}
+
+.card .background .line:after {
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    transform-origin: 50% 0;
+    transform: scaleY(0);
+}
+
+.card .background .line.line-1:before {
+    top: 10%;
+}
+
+.card .background .line.line-1:after {
+    left: 22.5%;
+}
+
+.card .background .line.line-1:before,
+.card .background .line.line-1:after {
+    transition-delay: 0.3s;
+}
+
+.card .background .line.line-2:before {
+    top: 32.5%;
+}
+
+.card .background .line.line-2:after {
+    left: 50%;
+}
+
+.card .background .line.line-2:before,
+.card .background .line.line-2:after {
+    transition-delay: 0.15s;
+}
+
+.card .background .line.line-3:before {
+    top: 55%;
+}
+
+.card .background .line.line-3:after {
+    right: 22.5%;
+}
+
+.card:hover {
+    box-shadow: 0px 3px 6px var(--card-hover-box-shadow-1), 0px var(--card-hover-box-shadow-2-y) var(--card-hover-box-shadow-2-blur) var(--card-hover-box-shadow-2), 0 0 0 1px var(--card-hover-border-color);
+}
+
+.card:hover .icon::after {
+    background-color: var(--card-hover-icon-background-color);
+    border-color: var(--card-hover-icon-border-color);
+}
+
+.card:hover .icon svg {
+    color: var(--card-hover-icon-color);
+}
+
+.card:hover .shine {
+    opacity: 1;
+    transition-duration: 0.5s;
+    transition-delay: 0s;
+}
+
+.card:hover .background .tiles {
+    opacity: 1;
+    transition-delay: 0.25s;
+}
+
+.card:hover .background .tiles .tile {
+    -webkit-animation-name: tile;
+    animation-name: tile;
+}
+
+.card:hover .background .line {
+    opacity: 1;
+    transition-duration: 0.15s;
+}
+
+.card:hover .background .line:before {
+    transform: scaleX(1);
+}
+
+.card:hover .background .line:after {
+    transform: scaleY(1);
+}
+
+.card:hover .background .line.line-1:before,
+.card:hover .background .line.line-1:after {
+    transition-delay: 0s;
+}
+
+.card:hover .background .line.line-2:before,
+.card:hover .background .line.line-2:after {
+    transition-delay: 0.15s;
+}
+
+.card:hover .background .line.line-3:before,
+.card:hover .background .line.line-3:after {
+    transition-delay: 0.3s;
+}

@@ -1,0 +1,67 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="styles/wsite_theme.css">
+  <link rel="stylesheet" type="text/css" href="styles/chessboard_theme.css">
+  <link rel="icon" type="image/x-icon" href="assets/menu-icons/checkers.png">
+  <style data-merge-styles="true"></style>
+  <title>Checkers</title>
+</head>
+
+<body>
+  <div class="board-b72b1" style="margin: auto;">
+    <div class="chessboard-63f37">
+      <div id="board" style="width: 384px;">
+      </div>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="scripts/checkers.js"></script>
+  <script>
+  </script>
+  <details id="how-to-play-modal">
+    <summary>
+      <div class="details-modal-overlay"></div>
+    </summary>
+    <div class="details-modal">
+      <!-- <div class="details-modal-close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M13.7071 1.70711C14.0976 1.31658 14.0976 0.683417 13.7071 0.292893C13.3166 -0.0976311 12.6834 -0.0976311 12.2929 0.292893L7 5.58579L1.70711 0.292893C1.31658 -0.0976311 0.683417 -0.0976311 0.292893 0.292893C-0.0976311 0.683417 -0.0976311 1.31658 0.292893 1.70711L5.58579 7L0.292893 12.2929C-0.0976311 12.6834 -0.0976311 13.3166 0.292893 13.7071C0.683417 14.0976 1.31658 14.0976 1.70711 13.7071L7 8.41421L12.2929 13.7071C12.6834 14.0976 13.3166 14.0976 13.7071 13.7071C14.0976 13.3166 14.0976 12.6834 13.7071 12.2929L8.41421 7L13.7071 1.70711Z" fill="black" />
+        </svg>
+      </div> -->
+      <div class="details-modal-title">
+        <h1>How to Play?</h1>
+      </div>
+      <div class="details-modal-content">
+        <p>
+          Our version of chess is played against an AI and the player is in control of the Black Pieces. In order to move a piece, simply click on it and then click on the square you want to move it to (if the square is highlighted, it means that it is a valid move). Remember that you can only move your pieces diagonally and that you can only move forward. If you reach the other side of the board, your piece will be promoted and will be able to move backwards as well. If you can capture an enemy piece, you must do so as it is mandatory. To win the game, you must capture all of the enemy pieces. Good luck and have fun!
+        </p>
+      </div>
+    </div>
+  </details>
+  <details id="brief-overview-modal">
+    <summary>
+      <div class="details-modal-overlay"></div>
+    </summary>
+    <div class="details-modal">
+      <div class="details-modal-title">
+        <h1>A Brief View on Checkers</h1>
+      </div>
+      <div class="details-modal-content">
+        <p>
+          Checkers is a strategy board game for two players that involves the usage of two sets of pieces of opposing colors that are moved diagonally through a square 8x8, 10x10 or 12x12 boards, depending on the version. In contrast to Chess, if it is possible to capture one of the opponent’s pieces then it is mandatory, by official rules, that the player captures said piece. The game of Checkers was developed from Alquerque, a similar board game that is believed to have originated in the Middle East. In 2007, a Canadian team of computer scientists solved weekly a game of American Checkers (8x8 format). In this case, from the starting position, perfect play by each side would result in a draw. The current World Champion for Checkers is the Italian Matteo Bernini.
+        </p>
+      </div>
+    </div>
+  </details>
+  <script src="scripts/help_trigger_event.js"></script>
+  <label class="day-night" style="display: inherit;">
+    <input type="checkbox">
+    <div></div>
+  </label>
+  <script src="scripts/day_night_toggle_controls.js"></script>
+</body>
+</html>
